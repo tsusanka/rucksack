@@ -7,6 +7,9 @@
 class RuckSackProblem
 {
 
+	/** @var int */
+	private $id;
+
 	/** @var int number of available items */
 	private $size;
 
@@ -28,6 +31,7 @@ class RuckSackProblem
 
 	public function __construct($id, $size, $capacity, $parameters)
 	{
+		$this->id = $id;
 		$this->size = $size;
 		$this->capacity = $capacity;
 		$this->parseParameters($parameters);
@@ -39,7 +43,7 @@ class RuckSackProblem
 		$init = [FALSE, FALSE, FALSE, FALSE];
 		$this->check($init);
 		$this->walk(0, $init);
-		de($this->solution);
+		$this->printSolution();
 	}
 
 
@@ -76,6 +80,16 @@ class RuckSackProblem
 			$this->maxPrice = $price;
 			$this->solution = $booleans;
 		}
+	}
+
+
+	public function printSolution()
+	{
+		$string = $this->id . ' ' . $this->size . ' ' . $this->maxPrice . ' ';
+		foreach ($this->solution as $boolean) {
+			$string .= (int) $boolean . ' ';
+		}
+		echo substr($string, 0, -1) . "\n";
 	}
 
 
