@@ -13,8 +13,11 @@ class RuckSackProblem
 	/** @var int */
 	private $capacity;
 
-	/** @var int[][] */
-	private $availableItems;
+	/** @var int[] */
+	private $weights;
+
+	/** @var int[] */
+	private $prices;
 
 	/** @var boolean[] */
 	private $solution;
@@ -33,34 +36,37 @@ class RuckSackProblem
 
 	public function solve()
 	{
-		$this->x(0, [TRUE, TRUE, TRUE, TRUE]);
+		$init = [FALSE, FALSE, FALSE, FALSE];
+		$this->check($init);
+		$this->walk(0, $init);
 		de($this->solution);
 	}
 
 
-	public function x($index, $values)
+	public function walk($index, $values)
 	{
 		if ($index === $this->size) {
 			return $values;
 		}
-		$this->check($values);
 
-		$this->x($index + 1, $values);
+		$this->walk($index + 1, $values);
 		$values[$index] = !$values[$index];
 
-		return $this->x($index + 1, $values);
+		$this->check($values);
+
+		return $this->walk($index + 1, $values);
 	}
 
 
 	private function check($booleans)
 	{
 		$weight = $price = 0;
-		foreach ($this->availableItems as $key => $item) {
-			if (!$booleans[$key]) {
+		for ($i = 0; $i < $this->size; $i++) {
+			if (!$booleans[$i]) {
 				continue;
 			}
-			$weight += $item['w'];
-			$price += $item['p'];
+			$weight += $this->weights[$i];
+			$price += $this->prices[$i];
 		}
 
 		if ($weight > $this->capacity) {
@@ -78,10 +84,10 @@ class RuckSackProblem
 		$cnt = 0;
 		for ($i = 0; $i < count($parameters); $i++) {
 			if (!($i % 2)) {
-				$this->availableItems[$cnt]['w'] = $parameters[$i];
+				$this->weights[$cnt] = $parameters[$i];
 
 			} else {
-				$this->availableItems[$cnt]['p'] = $parameters[$i];
+				$this->prices[$cnt] = $parameters[$i];
 				$cnt++;
 			}
 		}
