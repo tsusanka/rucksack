@@ -29,12 +29,9 @@ class RuckSackProblem
 	private $maxPrice = 0;
 
 
-	public function __construct($id, $size, $capacity, $parameters)
+	public function __construct($args)
 	{
-		$this->id = $id;
-		$this->size = $size;
-		$this->capacity = $capacity;
-		$this->parseParameters($parameters);
+		$this->parseParameters($args);
 	}
 
 
@@ -83,9 +80,9 @@ class RuckSackProblem
 	}
 
 
-	public function printSolution()
+	private function printSolution()
 	{
-		$string = $this->id . ' ' . $this->size . ' ' . $this->maxPrice . ' ';
+		$string = $this->id . ' ' . $this->size . ' ' . $this->maxPrice . '  ';
 		foreach ($this->solution as $boolean) {
 			$string .= (int) $boolean . ' ';
 		}
@@ -93,15 +90,20 @@ class RuckSackProblem
 	}
 
 
-	private function parseParameters($parameters)
+	private function parseParameters($args)
 	{
+		$this->id = (int) $args[0];
+		$this->size = (int) $args[1];
+		$this->capacity = (int) $args[2];
+		$parameters = array_slice($args, 3);
+
 		$cnt = 0;
 		for ($i = 0; $i < count($parameters); $i++) {
 			if (!($i % 2)) {
-				$this->weights[$cnt] = $parameters[$i];
+				$this->weights[$cnt] = (int) $parameters[$i];
 
 			} else {
-				$this->prices[$cnt] = $parameters[$i];
+				$this->prices[$cnt] = (int) $parameters[$i];
 				$cnt++;
 			}
 		}
