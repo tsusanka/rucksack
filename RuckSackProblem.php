@@ -37,7 +37,9 @@ class RuckSackProblem
 
 	public function solve()
 	{
-		$init = [FALSE, FALSE, FALSE, FALSE];
+		for ($i = 0; $i < $this->size; $i++) {
+			$init[] = FALSE;
+		}
 		$this->check($init);
 		$this->walk(0, $init);
 		$this->printSolution();
@@ -73,7 +75,7 @@ class RuckSackProblem
 		if ($weight > $this->capacity) {
 			return;
 		}
-		if ($price > $this->maxPrice) {
+		if ($price >= $this->maxPrice) {
 			$this->maxPrice = $price;
 			$this->solution = $booleans;
 		}
