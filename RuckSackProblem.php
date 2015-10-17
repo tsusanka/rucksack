@@ -37,6 +37,7 @@ class RuckSackProblem
 
 	public function solve()
 	{
+		$init = [];
 		for ($i = 0; $i < $this->size; $i++) {
 			$init[] = FALSE;
 		}
