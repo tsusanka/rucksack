@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
-
-require_once('RuckSackProblem.php');
+require_once('loader.php');
 
 if (!isset($argv[1])) {
 	echo "Missing filename\n";
@@ -16,7 +15,7 @@ function loadFile($filename)
 	if ($handle) {
 		while (($line = fgets($handle)) !== FALSE) {
 			$parameters = rtrim($line, "\r\n");
-			$r = new RuckSackProblem(explode(' ', $parameters));
+			$r = new RuckSackProblemRatio(explode(' ', $parameters));
 			$r->solve();
 		}
 
