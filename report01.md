@@ -3,17 +3,28 @@
 ## Řešení problému batohu metodou hrubé síly a jednoduchou heuristikou
 
 ### Specifikace úlohy
-viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/tutorials/batoh)
+Viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/tutorials/batoh).
 
-### Zadání
-1. Naprogramujte řešení problému batohu hrubou silou (tj. exaktně). Na zkušebních datech pozorujte závislost výpočetního času na n.
-2. Naprogramujte řešení problému batohu heuristikou podle poměru cena/váha. Pozorujte
- - závislost výpočetního času na n. Grafy jsou vítány (i pro exaktní metodu).
- - průměrnou a maximální relativní chybu (tj. zhoršení proti exaktní metodě)
+### Rozbor možných variant řešení
+
+##### Řešení hrubou silou
+
+Procházíme všechny možnosti. Máme zaručeno, že nalezneme optimální řešení. Složitost je O(2^n).
+
+##### Řešení heuristikou poměr cena/váha
+
+Nejprve si pro každou položku spočítáme poměr cena/váha. Poté setřídíme. Do batohu poté přidáváme položky, které mají nejlepší poměr. Složitost je O(nlogn), avšak algoritmus nezaručuje nalezení optimálního řešení.
 
 ### Rámcový popis postupu řešení
 
+
 ### Popis kostry algoritmu
+
+Soubor `main.php` obsahuje prvotní logiku programu. Načte data ze souboru a řádek po řádku vytváří instanci třídy `RuckSackProblemBrute` (příp. `RuckSackProblemRatio`). Tyto třídy jsou potomky abstraktní třídy `BaseRuckSackProblem`, která má pomocné metody pro zpracování vstupu a výstupu. Také definuje abstraktní metodu `solve()`, která je zodpovědná za spočtení řešení.
+
+`RuckSackProblemBrute` vytváří rekurzi o *n* větvích. V každé části provadíme jendo rekurzivní volání pro hodnotu TRUE a jedno pro FALSE. Tímto způsobem vygenerujeme všechny možné varianty. Pro každou tuto variantu voláme funkci `check()`, která spočítá váhu a cenu daného řešení. Pokud je váha validní (nepřesahuje hmotnost baťohu) a pokud je cena nejvyšší nalezená, uložíme tuto konfiguraci. Na závěr řešení vypíšeme.
+
+`RuckSackProblemRatio` si nejdříve spočte poměr cena/váha ke každé položce. Poté tyto poměry seřadí. Následně se volá funkce `add()`, která  podle seřazených hodnot postupně přidává položky do batohu.
 
 ### Naměřené výsledky
 
@@ -26,5 +37,5 @@ Měřeno na:
 
 ### Závěr
 
-Tomáš Sušánka
+Autor: Tomáš Sušánka (susantom)
 

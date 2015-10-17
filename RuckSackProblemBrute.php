@@ -5,7 +5,7 @@ require_once('loader.php');
 /**
  * Class RuckSackProblem
  */
-class RuckSackProblem extends BaseRuckSackProblem
+class RuckSackProblemBrute extends BaseRuckSackProblem
 {
 
 	public function solve()
@@ -31,7 +31,7 @@ class RuckSackProblem extends BaseRuckSackProblem
 
 		$this->check($values);
 
-		return $this->walk($index + 1, $values);
+		$this->walk($index + 1, $values);
 	}
 
 

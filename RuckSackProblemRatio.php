@@ -15,12 +15,12 @@ class RuckSackProblemRatio extends BaseRuckSackProblem
 		}
 		asort($this->ratios);
 		$this->ratios = array_reverse($this->ratios, TRUE);
-		$this->check();
+		$this->add();
 		$this->printSolution();
 	}
 
 
-	private function check()
+	private function add()
 	{
 		$weight = $price = 0;
 		foreach ($this->ratios as $i => $ratio) {
