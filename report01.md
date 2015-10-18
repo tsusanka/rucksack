@@ -1,6 +1,4 @@
-# MI-PAA úloha 1
-
-## Řešení problému batohu metodou hrubé síly a jednoduchou heuristikou
+## MI-PAA: Řešení problému batohu metodou hrubé síly a jednoduchou heuristikou
 
 ### Specifikace úlohy
 Viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/tutorials/batoh).
@@ -15,9 +13,6 @@ Procházíme všechny možnosti. Máme zaručeno, že nalezneme optimální ře�
 
 Nejprve si pro každou položku spočítáme poměr cena/váha. Poté setřídíme. Do batohu poté přidáváme položky, které mají nejlepší poměr. Složitost je O(nlogn), avšak algoritmus nezaručuje nalezení optimálního řešení.
 
-### Rámcový popis postupu řešení
-
-
 ### Popis kostry algoritmu
 
 Soubor `main.php` obsahuje prvotní logiku programu. Načte data ze souboru a řádek po řádku vytváří instanci třídy `RuckSackProblemBrute` (příp. `RuckSackProblemRatio`). Tyto třídy jsou potomky abstraktní třídy `BaseRuckSackProblem`, která má pomocné metody pro zpracování vstupu a výstupu. Také definuje abstraktní metodu `solve()`, která je zodpovědná za spočtení řešení.
@@ -28,12 +23,21 @@ Soubor `main.php` obsahuje prvotní logiku programu. Načte data ze souboru a ř
 
 ### Naměřené výsledky
 
+|  n  |    čas      |
+|:----|:------------|
+|  4  |  0,0004s    |
+| 10  |  0,00834s   |
+| 15  |  0,3362s    |
+| 20  |  12,357s    |
+| 22  |  52,98152s  |
+| 25  |  453,79622s |
+
 Měřeno na:
 
+- PHP 5.6.14
+- Linux 3.18.22 Manjaro distribution based on Arch Linux
 - Intel(R) Core(TM) i7-3517U CPU @ 1.90GHz
 - 4 GB RAM
-- 256 GB SSD
-- Linux 3.18.22 Manjaro distribution based on Arch Linux
 
 ### Závěr
 

@@ -1,0 +1,35 @@
+doing 4
+
+real	0m0.032s
+user	0m0.020s
+sys	0m0.010s
+
+doing 10
+
+real	0m0.420s
+user	0m0.417s
+sys	0m0.000s
+
+doing 15
+
+real	0m16.805s
+user	0m16.810s
+sys	0m0.003s
+
+doing 20
+
+real	10m17.466s
+user	10m17.850s
+sys	0m0.050s
+
+doing 22
+
+real	44m7.191s
+user	44m9.076s
+sys	0m0.107s
+
+doing 25
+
+real	377m54.150s
+user	378m9.811s
+sys	0m0.760s
