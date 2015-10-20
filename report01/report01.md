@@ -27,6 +27,8 @@ Soubor `main.php` obsahuje prvotní logiku programu. Načte data ze souboru a ř
 
 Nameřené časy v ms za běh jedné instance problému v závislosti na *n*.
 
+Tabulka:
+
 |  n  |    čas [ms] |
 |:----|:------------|
 |  4  |  0,4    |
@@ -36,9 +38,13 @@ Nameřené časy v ms za běh jedné instance problému v závislosti na *n*.
 | 22  |  52981,52  |
 | 25  |  453796,22 |
 
--- graf 1
+Graf:
+
+![](chart1.png)
 
 #### Heuresitika cena/výkon
+
+Tabulka:
 
 |  n  |    čas [ms] |
 |:----|:------------|
@@ -49,10 +55,13 @@ Nameřené časy v ms za běh jedné instance problému v závislosti na *n*.
 | 22  |  0,36  |
 | 25  |  0,34 |
 
--- graf 2
+Graf:
+
+![](chart2.png)
 
 
 
+-- relativni chyba
 
 
 

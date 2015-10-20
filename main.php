@@ -7,24 +7,16 @@ if (!isset($argv[1])) {
 	exit(1);
 }
 
-loadFile($argv[1]);
-
-function loadFile($filename)
-{
-	$handle = fopen($filename, 'r');
-	if ($handle) {
-		while (($line = fgets($handle)) !== FALSE) {
-			$parameters = rtrim($line, "\r\n");
-			$r = new RuckSackProblemRatio(explode(' ', $parameters));
-			$r->solve();
-		}
-
-		fclose($handle);
-	} else {
-		echo "Provided file does not exist\n";
-		exit(2);
-	}
+$runner = new Runner();
+try {
+	$runner->loadFile($argv[1]);
+} catch (Exception $e) {
+	echo $e->getMessage();
+	exit(2);
 }
+
+echo "average: " . $runner->getRelativeErrorAverage() . "\n";
+echo "max: " . $runner->getRelativeErrorMax() . "\n";
 
 function de($args)
 {

@@ -16,7 +16,7 @@ class RuckSackProblemBrute extends BaseRuckSackProblem
 		}
 		$this->check($init);
 		$this->walk(0, $init);
-		$this->printSolution();
+		return $this->maxPrice;
 	}
 
 

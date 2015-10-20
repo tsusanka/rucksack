@@ -16,7 +16,7 @@ class RuckSackProblemRatio extends BaseRuckSackProblem
 		asort($this->ratios);
 		$this->ratios = array_reverse($this->ratios, TRUE);
 		$this->add();
-		$this->printSolution();
+		return $this->maxPrice;
 	}
 
 
