@@ -15,7 +15,7 @@ function loadFile($filename)
 	if ($handle) {
 		while (($line = fgets($handle)) !== FALSE) {
 			$parameters = rtrim($line, "\r\n");
-			$r = new RuckSackProblemBrute(explode(' ', $parameters));
+			$r = new RuckSackProblemRatio(explode(' ', $parameters));
 			$r->solve();
 		}
 

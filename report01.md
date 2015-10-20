@@ -23,14 +23,39 @@ Soubor `main.php` obsahuje prvotní logiku programu. Načte data ze souboru a ř
 
 ### Naměřené výsledky
 
-|  n  |    čas      |
+#### Hrubá síla
+
+Nameřené časy v ms za běh jedné instance problému v závislosti na *n*.
+
+|  n  |    čas [ms] |
 |:----|:------------|
-|  4  |  0,0004s    |
-| 10  |  0,00834s   |
-| 15  |  0,3362s    |
-| 20  |  12,357s    |
-| 22  |  52,98152s  |
-| 25  |  453,79622s |
+|  4  |  0,4    |
+| 10  |  8,34   |
+| 15  |  336,2    |
+| 20  |  12357,0    |
+| 22  |  52981,52  |
+| 25  |  453796,22 |
+
+-- graf 1
+
+#### Heuresitika cena/výkon
+
+|  n  |    čas [ms] |
+|:----|:------------|
+|  4  |  0,06   |
+| 10  |  0,2   |
+| 15  |  0,34   |
+| 20  |  0,34   |
+| 22  |  0,36  |
+| 25  |  0,34 |
+
+-- graf 2
+
+
+
+
+
+
 
 Měřeno na:
 
