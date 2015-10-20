@@ -59,11 +59,34 @@ Graf:
 
 ![](chart2.png)
 
+##### Relativní chyba
+
+Průměrná relativní chyba:
+
+|  n  |  průměrná rel. chyba [%] |
+|:----|:------------|
+| 4 | 2,17 |
+| 10 | 1,29 |
+| 15 | 0,48 |
+| 20 | 0,60 |
+| 22 | 0,69 |
+| 25 | 0,64 |
+
+![](chart3.png)
 
 
--- relativni chyba
+Průměrná relativní chyba:
 
+|  n  |  maximální rel. chyba [%] |
+|:----|:------------|
+| 4 | 36,36 |
+| 10 | 11,48 |
+| 15 | 8,54 |
+| 20 | 8,43 |
+| 22 | 7,23 |
+| 25 | 8,10 |
 
+![](chart4.png)
 
 
 Měřeno na:
