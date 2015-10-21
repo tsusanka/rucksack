@@ -41,6 +41,8 @@ Tabulka:
 Graf:
 
 ![](chart1.png)
+n
+
 
 #### Heuresitika cena/výkon
 
@@ -75,7 +77,7 @@ Průměrná relativní chyba:
 ![](chart3.png)
 
 
-Průměrná relativní chyba:
+Maximální relativní chyba:
 
 |  n  |  maximální rel. chyba [%] |
 |:----|:------------|
@@ -97,6 +99,8 @@ Měřeno na:
 - 4 GB RAM
 
 ### Závěr
+
+Vidíme, že naměřené časy u metody hrubou silou opravdu rostou exponenciálně. Rozdíl mezi časy hrubou silou a metodou cena/váha je s roustoucím *n* obrovský. Průměrná relativní chyba u vyšších *n* padá pod 1%. Pokud nám tedy tato chybovost nevadí, heurestika nabízí rychlé řešení problému.
 
 Autor: Tomáš Sušánka (susantom)
 
