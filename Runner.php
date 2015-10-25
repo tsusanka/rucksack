@@ -11,11 +11,8 @@ class Runner
 
 	private function run($arguments)
 	{
-		$brute = new RuckSackProblemBrute($arguments);
-		$optimalPrice = $brute->solve();
-		$ratio = new RuckSackProblemRatio($arguments);
-		$heuresticPrice = $ratio->solve();
-		$this->errors[] = $this->getRelativeError($optimalPrice, $heuresticPrice);
+		$brute = new RuckSackProblemBB($arguments);
+		$brute->solve();
 	}
 
 

@@ -15,9 +15,6 @@ try {
 	exit(2);
 }
 
-echo "average: " . $runner->getRelativeErrorAverage() . "\n";
-echo "max: " . $runner->getRelativeErrorMax() . "\n";
-
 function de($args)
 {
 	var_dump($args);

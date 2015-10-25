@@ -4,3 +4,4 @@ require_once('Runner.php');
 require_once('BaseRuckSackProblem.php');
 require_once('RuckSackProblemBrute.php');
 require_once('RuckSackProblemRatio.php');
+require_once('RuckSackProblemBB.php');
