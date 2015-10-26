@@ -23,8 +23,6 @@ class RuckSackProblemBB extends BaseRuckSackProblem
 			return $values;
 		}
 
-
-
 		if ($this->isPerspective($values, $index)) {
 			$this->walk($index + 1, $values);
 			$values[$index] = !$values[$index];
