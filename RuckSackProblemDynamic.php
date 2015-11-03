@@ -48,11 +48,12 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 			}
 		}
 
-		$tr = $this->maxPrice; // traversing index - name? @todo
+		$floater = $this->maxPrice;
 		for ($i = $this->size; $i > 0; $i--) {
-			if ($this->table[$i][$tr] !== $this->table[$i - 1][$tr]) {
+			if ($floater === 0) break;
+			if ($this->table[$i][$floater] !== $this->table[$i - 1][$floater]) {
 				$solution[$i - 1] = TRUE;
-				$tr -= $this->prices[$i - 1];
+				$floater -= $this->prices[$i - 1];
 			}
 		}
 
