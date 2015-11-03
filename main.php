@@ -15,8 +15,8 @@ try {
 	exit(2);
 }
 
-function de($args)
+function de(...$args)
 {
-	var_dump($args);
+	var_dump(...$args);
 	exit;
 }
