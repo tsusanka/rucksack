@@ -11,7 +11,7 @@ class Runner
 
 	private function run($arguments)
 	{
-		$brute = new RuckSackProblemBB($arguments);
+		$brute = new RuckSackProblemDynamic($arguments);
 		$brute->solve();
 	}
 
