@@ -9,10 +9,10 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 	const INFINITY = PHP_INT_MAX;
 
 	/** @var int */
-	protected $maxPotentialPrice;
+	private $maxPotentialPrice;
 
 	/** @var int[][] */
-	protected $table;
+	private $table;
 
 
 	public function solve()
@@ -23,7 +23,7 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 		for ($i = $this->maxPotentialPrice; $i > 0; $i--) {
 			$this->W($this->size, $i);
 		}
-		$this->printSolution();
+		$this->retrieveSolution();
 	}
 
 
@@ -52,7 +52,7 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 	}
 
 
-	protected function printSolution()
+	public function retrieveSolution()
 	{
 		$solution = [];
 		for ($i = 0; $i < $this->size; $i++) {
@@ -76,7 +76,6 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 		}
 
 		$this->solution = $solution;
-		parent::printSolution();
 	}
 
 

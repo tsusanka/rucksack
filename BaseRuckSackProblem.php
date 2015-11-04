@@ -33,7 +33,7 @@ abstract class BaseRuckSackProblem
 	}
 
 
-	protected function printSolution()
+	public function printSolution()
 	{
 		ksort($this->solution);
 		$string = $this->id . ' ' . $this->size . ' ' . $this->maxPrice . '  ';
