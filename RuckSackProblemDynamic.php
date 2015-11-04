@@ -5,17 +5,20 @@ require_once('loader.php');
 class RuckSackProblemDynamic extends BaseRuckSackProblem
 {
 
-	const INFINITY = 99999999999;
+	/** @const int */
+	const INFINITY = PHP_INT_MAX;
 
+	/** @var int */
 	protected $maxPotentialPrice;
 
+	/** @var int[][] */
 	protected $table;
 
 
 	public function solve()
 	{
 		$this->maxPotentialPrice = array_sum($this->prices);
-		$this->init();
+		$this->initTable();
 
 		for ($i = $this->maxPotentialPrice; $i > 0; $i--) {
 			$this->W($this->size, $i);
@@ -24,13 +27,28 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 	}
 
 
-	private function init()
+	private function initTable()
 	{
 		for ($i = 0; $i <= $this->size; $i++) {
 			for ($y = 0; $y <= $this->maxPotentialPrice; $y++) {
 				$this->table[$i][$y] = NULL;
 			}
 		}
+	}
+
+
+	private function W($i, $c)
+	{
+		if ($c < 0) return self::INFINITY;
+		if ($i === 0 && $c === 0) return 0;
+		if ($i === 0) return self::INFINITY;
+		if ($this->table[$i][$c] !== NULL) {
+			return $this->table[$i][$c];
+		}
+
+		$this->table[$i][$c] = min($this->W($i - 1, $c), $this->W($i - 1, $c - $this->getPrice($i)) + $this->getWeight($i));
+
+		return $this->table[$i][$c];
 	}
 
 
@@ -59,21 +77,6 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 
 		$this->solution = $solution;
 		parent::printSolution();
-	}
-
-
-	private function W($i, $c)
-	{
-		if ($c < 0) return self::INFINITY;
-		if ($i === 0 && $c === 0) return 0;
-		if ($i === 0) return self::INFINITY;
-		if ($this->table[$i][$c] !== NULL) {
-			return $this->table[$i][$c];
-		}
-
-		$this->table[$i][$c] = $res = min($this->W($i - 1, $c), $this->W($i - 1, $c - $this->getPrice($i)) + $this->getWeight($i));
-
-		return $res;
 	}
 
 
