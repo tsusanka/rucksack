@@ -33,14 +33,20 @@ abstract class BaseRuckSackProblem
 	}
 
 
-	public function printSolution()
+	public function getSolution()
 	{
 		ksort($this->solution);
 		$string = $this->id . ' ' . $this->size . ' ' . $this->maxPrice . '  ';
 		foreach ($this->solution as $boolean) {
 			$string .= (int) $boolean . ' ';
 		}
-		echo substr($string, 0, -1) . "\n";
+		return substr($string, 0, -1) . "\n";
+	}
+
+
+	public function printSolution()
+	{
+		echo $this->getSolution();
 	}
 
 

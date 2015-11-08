@@ -5,7 +5,7 @@ require_once('loader.php');
 class Runner
 {
 
-	/** @var float[] */
+	/** @var int[] */
 	private $errors;
 
 
@@ -13,40 +13,46 @@ class Runner
 	{
 		$solver = new RuckSackProblemFPTAS($arguments);
 		$solver->solve();
-		$solver->printSolution();
+		return $solver->getSolution();
 	}
 
 
-	public function loadFile($filename)
+	public function loadFile($source, $solution)
 	{
-		$handle = fopen($filename, 'r');
-		if ($handle) {
-			while (($line = fgets($handle)) !== FALSE) {
-				$parameters = rtrim($line, "\r\n");
-				$this->run(explode(' ', $parameters));
-			}
-			fclose($handle);
-		} else {
+		$handle = fopen($source, 'r');
+		$handleSolution = fopen($solution, 'r');
+		if (!$handle || !$handleSolution) {
 			throw new Exception("Provided file does not exist");
 		}
+
+		while (($line = fgets($handle)) !== FALSE) {
+			$parameters = rtrim($line, "\r\n");
+			$result = $this->run(explode(' ', $parameters));
+			$solution = fgets($handleSolution);
+			$this->compareTwoResults($result, $solution);
+		}
+		fclose($handle);
+		fclose($handleSolution);
 	}
 
 
-	public function getRelativeErrorAverage()
+	private function compareTwoResults($a, $b)
+	{
+		if ($a === $b) {
+			$this->errors[] = 0;
+			return;
+		}
+		$args = explode(" ", $a);
+		$priceA = $args[2];
+		$args = explode(" ", $b);
+		$priceB = $args[2];
+		$this->errors[] = abs($priceA - $priceB);
+	}
+
+
+	public function getErrorRate()
 	{
 		return array_sum($this->errors) / count($this->errors);
-	}
-
-
-	public function getRelativeErrorMax()
-	{
-		return max($this->errors);
-	}
-
-
-	private function getRelativeError($optimal, $heurestic)
-	{
-		return ($optimal - $heurestic) / $optimal;
 	}
 
 }
