@@ -7,24 +7,33 @@ Viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/tutorials/batoh).
 
 ##### Metodou větví a hranic (B&B)
 
-##### 
 
-@todo
+Metoda je velmi podobná řešení hrubou silou. Jediný rozdíl se nachází v hloubce rekurze. V každém kroku zkontrolujeme zdali má smysl jít hlouběji. To určuje metoda `isPerspective()`, která v současném kroku rekurze spočítá co se stane, pokud přidáme všechny ostatní položky nehledě na kapacitu. Pokud je celková cena přesto nižší než současné řešení, další rekurzi nevytváříme.
 
-##### 
+##### Metoda dynamického programování
 
-@todo
+Nejprve vytvoříme sumu cen položek. Poté inicializujeme tabulku položek od 1 do této maximální ceny. Tabulku vyplníme postupně rekurzí - řešíme problémy E(n, c) pro všechna c a rekurzivně potřebné podproblémy.
+
+Označme E(i, c) instanci 0/1 inverzního problému batohu se zadanou cenou c, která vznikne z řešené instance omezením na prvých i věcí. Označme dále W(i, c) sumární hmotnost věcí řešené instance. Pak platí:
+
+- W(0,0) = 0
+- W(0,c) = ∞ pro všechna c > 0
+- W(i+1, c) = min(W(i, c), W(i, c-ci+1)+wi+1) pro všechna i > 0.
+
+Z výsledných řešení W(n, c) vybereme řešení, pro které je W(n, c) < M pro největší c.
+
+
+##### Metodou FPTAS
+
+Pomocí vzorce `floor(log((eps * Cm / n)))` spočteme *b*. Toto *b* určuje o kolik bitově posuneme každou z cen. Poté pro řešení zavoláme metodu dynamcikého programování. Vezmeme výsledky a aplikujeme je na půovodní ceny.
 
 ### Popis kostry algoritmu
 
 Soubor `main.php` obsahuje prvotní logiku programu. Vytvoří třídu Runner. Ta načte data ze souboru a řádek po řádku vytváří instanci třídy `RuckSackProblemBB` (apod.). Tyto třídy jsou potomky abstraktní třídy `BaseRuckSackProblem`, která má pomocné metody pro zpracování vstupu a výstupu. Také definuje abstraktní metodu `solve()`, která je zodpovědná za spočtení řešení.
 
-`RuckSackProblemBB`
-
-
 ### Naměřené výsledky
 
-#### Hrubá síla
+#### B&B
 
 Nameřené časy v ms za běh jedné instance problému v závislosti na *n*.
 
@@ -32,63 +41,39 @@ Tabulka:
 
 |  n  |    čas [ms] |
 |:----|:------------|
-|  4  |  0,4    |
-| 10  |  8,34   |
-| 15  |  336,2    |
-| 20  |  12357,0    |
-| 22  |  52981,52  |
-| 25  |  453796,22 |
+| 4 | 0,54 |
+| 10 | 5,96 |
+| 15 | 31,62 |
+| 20 | 758,2 |
+| 22 | 3553,04 |
+| 25 | 22126,42 |
 
 Graf:
 
 ![](chart1.png)
 
 
-#### Heuresitika cena/výkon
+#### Dynamické programování
 
 Tabulka:
 
 |  n  |    čas [ms] |
 |:----|:------------|
-|  4  |  0,06   |
-| 10  |  0,2   |
-| 15  |  0,34   |
-| 20  |  0,34   |
-| 22  |  0,36  |
-| 25  |  0,34 |
+| 4 | 12,48 |
+| 10 | 81,66 |
+| 15 | 163,38 |
+| 20 | 298,2 |
+| 22 | 361,06 |
+| 25 | 500,9 |
+
 
 Graf:
 
 ![](chart2.png)
 
-##### Relativní chyba
-
-Průměrná relativní chyba:
-
-|  n  |  průměrná rel. chyba [%] |
-|:----|:------------|
-| 4 | 2,17 |
-| 10 | 1,29 |
-| 15 | 0,48 |
-| 20 | 0,60 |
-| 22 | 0,69 |
-| 25 | 0,64 |
-
-![](chart3.png)
+#### FPTAS
 
 
-Maximální relativní chyba:
-
-|  n  |  maximální rel. chyba [%] |
-|:----|:------------|
-| 4 | 36,36 |
-| 10 | 11,48 |
-| 15 | 8,54 |
-| 20 | 8,43 |
-| 22 | 7,23 |
-| 25 | 8,10 |
-
-![](chart4.png)
 
 
 Měřeno na:
@@ -100,7 +85,7 @@ Měřeno na:
 
 ### Závěr
 
-Vidíme, že naměřené časy u metody hrubou silou opravdu rostou exponenciálně. Rozdíl mezi časy hrubou silou a metodou cena/váha je s roustoucím *n* zásadní. Průměrná relativní chyba u vyšších *n* padá pod 1%. Pokud nám tedy tato chybovost nevadí, heurestika nabízí rychlé řešení problému.
+Metoda B&B přináší zrychlení oproti metodě hrubou silou. Pouze však o konstatu, složitost je stále exponenciální, jak lze vidět z grafu. Dynamické programování přináší pseudopolynomické @todo řešení problému. Toho jsme schopni dosáhnout díky větší paměťové náročnosti a faktu, že jsou ceny celá čísla. Pokud by ceny byly z R, nemohli bychom pro každé potencionální řešení (tj. cenu) vytvořit řádek tabulky.
 
 Autor: Tomáš Sušánka (susantom)
 
