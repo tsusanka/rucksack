@@ -7,6 +7,7 @@ $sources = [
 	20 => 'data/input/knap_20.inst.dat',
 	25 => 'data/input/knap_25.inst.dat',
 	30 => 'data/input/knap_30.inst.dat',
+	40 => 'data/input/knap_40.inst.dat',
 ];
 
 $solutions = [
@@ -15,10 +16,11 @@ $solutions = [
 	20 => 'data/output/knap_20.sol.dat',
 	25 => 'data/output/knap_25.sol.dat',
 	30 => 'data/output/knap_30.sol.dat',
+	40 => 'data/output/knap_40.sol.dat',
 ];
 
-foreach ([0.1, 0.25, 0.5, 0.75] as $eps) {
-	foreach ([4, 10, 20, 25, 30] as $size) {
+foreach ([0.25, 0.5, 0.75, 0.9] as $eps) {
+	foreach ([4, 10, 20, 25, 30, 40] as $size) {
 		echo "n=$size eps=$eps errRate=";
 		passthru('time ./main.php ' . $sources[$size] . " " . $solutions[$size] . " " . $eps);
 	}
