@@ -17,10 +17,11 @@ $solutions = [
 	30 => 'data/output/knap_30.sol.dat',
 ];
 
-foreach ([4, 10, 20, 25, 30] as $size) {
-	echo "n=$size eps=0.2 errRate=";
-	passthru('time ./main.php ' . $sources[$size] . " " . $solutions[$size]);
-	exit;
+foreach ([0.1, 0.25, 0.5, 0.75] as $eps) {
+	foreach ([4, 10, 20, 25, 30] as $size) {
+		echo "n=$size eps=$eps errRate=";
+		passthru('time ./main.php ' . $sources[$size] . " " . $solutions[$size] . " " . $eps);
+	}
 }
 
 function de(...$args)

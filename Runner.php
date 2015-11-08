@@ -9,15 +9,15 @@ class Runner
 	private $errors;
 
 
-	private function run($arguments)
+	private function run($arguments, $extra = NULL)
 	{
-		$solver = new RuckSackProblemFPTAS($arguments);
+		$solver = new RuckSackProblemFPTAS($arguments, $extra);
 		$solver->solve();
 		return $solver->getSolution();
 	}
 
 
-	public function loadFile($source, $solution)
+	public function loadFile($source, $solution, $extra= NULL)
 	{
 		$handle = fopen($source, 'r');
 		$handleSolution = fopen($solution, 'r');
@@ -27,7 +27,7 @@ class Runner
 
 		while (($line = fgets($handle)) !== FALSE) {
 			$parameters = rtrim($line, "\r\n");
-			$result = $this->run(explode(' ', $parameters));
+			$result = $this->run(explode(' ', $parameters), $extra);
 			$solution = fgets($handleSolution);
 			$this->compareTwoResults($result, $solution);
 		}

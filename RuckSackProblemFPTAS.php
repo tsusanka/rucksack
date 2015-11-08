@@ -6,7 +6,7 @@ class RuckSackProblemFPTAS extends RuckSackProblemDynamic
 {
 
 	/** @const int */
-	const ERROR_RATE = 0.2;
+	private $errorRate = 0.2;
 
 	/** @const int */
 	private $shiftSize;
@@ -15,9 +15,18 @@ class RuckSackProblemFPTAS extends RuckSackProblemDynamic
 	private $realPrices;
 
 
+	public function __construct($arguments, $eps = NULL)
+	{
+		parent::__construct($arguments);
+		if ($eps) {
+			$this->errorRate = (float) $eps;
+		}
+	}
+
+
 	public function solve()
 	{
-		$this->shiftSize = floor(log((self::ERROR_RATE * max($this->prices) / $this->size)));
+		$this->shiftSize = floor(log(($this->errorRate * max($this->prices) / $this->size)));
 		if ($this->shiftSize < 0) $this->shiftSize = 0;
 
 		$this->realPrices = $this->prices;
