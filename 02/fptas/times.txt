@@ -1,0 +1,96 @@
+n=4 eps=0.25 errRate[%]=0
+real	0m0.171s
+user	0m0.167s
+sys	0m0.003s
+n=10 eps=0.25 errRate[%]=0.0033170255412342
+real	0m1.902s
+user	0m1.897s
+sys	0m0.007s
+n=20 eps=0.25 errRate[%]=0
+real	0m7.900s
+user	0m7.893s
+sys	0m0.010s
+n=25 eps=0.25 errRate[%]=0
+real	0m25.826s
+user	0m25.833s
+sys	0m0.013s
+n=30 eps=0.25 errRate[%]=0
+real	0m37.833s
+user	0m37.837s
+sys	0m0.020s
+n=40 eps=0.25 errRate[%]=0
+real	1m2.970s
+user	1m2.993s
+sys	0m0.023s
+n=4 eps=0.5 errRate[%]=0
+real	0m0.098s
+user	0m0.093s
+sys	0m0.003s
+n=10 eps=0.5 errRate[%]=0.0033170255412342
+real	0m0.996s
+user	0m0.993s
+sys	0m0.000s
+n=20 eps=0.5 errRate[%]=0
+real	0m7.458s
+user	0m7.460s
+sys	0m0.003s
+n=25 eps=0.5 errRate[%]=0.0007380073800738
+real	0m12.868s
+user	0m12.853s
+sys	0m0.017s
+n=30 eps=0.5 errRate[%]=0.0016219673374224
+real	0m17.785s
+user	0m17.793s
+sys	0m0.003s
+n=40 eps=0.5 errRate[%]=0.00087829700053234
+real	0m30.332s
+user	0m30.333s
+sys	0m0.017s
+n=4 eps=0.75 errRate[%]=0
+real	0m0.097s
+user	0m0.093s
+sys	0m0.000s
+n=10 eps=0.75 errRate[%]=0.0033170255412342
+real	0m0.973s
+user	0m0.967s
+sys	0m0.007s
+n=20 eps=0.75 errRate[%]=0.0025695931477516
+real	0m3.660s
+user	0m3.643s
+sys	0m0.013s
+n=25 eps=0.75 errRate[%]=0.0044653069382856
+real	0m7.320s
+user	0m7.313s
+sys	0m0.007s
+n=30 eps=0.75 errRate[%]=0.0016219673374224
+real	0m17.396s
+user	0m17.397s
+sys	0m0.007s
+n=40 eps=0.75 errRate[%]=0.00087829700053234
+real	0m32.196s
+user	0m32.210s
+sys	0m0.007s
+n=4 eps=0.9 errRate[%]=0.053872053872054
+real	0m0.088s
+user	0m0.087s
+sys	0m0.000s
+n=10 eps=0.9 errRate[%]=0.053024936264278
+real	0m0.570s
+user	0m0.563s
+sys	0m0.007s
+n=20 eps=0.9 errRate[%]=0.0025695931477516
+real	0m3.632s
+user	0m3.627s
+sys	0m0.007s
+n=25 eps=0.9 errRate[%]=0.0044653069382856
+real	0m5.979s
+user	0m5.970s
+sys	0m0.010s
+n=30 eps=0.9 errRate[%]=0.0016219673374224
+real	0m10.499s
+user	0m10.493s
+sys	0m0.003s
+n=40 eps=0.9 errRate[%]=0.00087829700053234
+real	0m31.737s
+user	0m31.747s
+sys	0m0.017s
