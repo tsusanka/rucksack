@@ -17,42 +17,44 @@ class Runner
 	}
 
 
-	public function loadFile($source, $solution, $extra= NULL)
+	public function loadFile($source, $expected, $extra = NULL)
 	{
 		$handle = fopen($source, 'r');
-		$handleSolution = fopen($solution, 'r');
+		$handleSolution = fopen($expected, 'r');
 		if (!$handle || !$handleSolution) {
 			throw new Exception("Provided file does not exist");
 		}
 
 		while (($line = fgets($handle)) !== FALSE) {
 			$parameters = rtrim($line, "\r\n");
-			$result = $this->run(explode(' ', $parameters), $extra);
-			$solution = fgets($handleSolution);
-			$this->compareTwoResults($result, $solution);
+			$actual = $this->run(explode(' ', $parameters), $extra);
+			$expected = fgets($handleSolution);
+			$this->compareTwoResults($actual, $expected);
 		}
 		fclose($handle);
 		fclose($handleSolution);
 	}
 
 
-	private function compareTwoResults($a, $b)
+	private function compareTwoResults($actual, $expected)
 	{
-		if ($a === $b) {
+		if ($actual === $expected) {
 			$this->errors[] = 0;
 			return;
 		}
-		$args = explode(" ", $a);
-		$priceA = $args[2];
-		$args = explode(" ", $b);
-		$priceB = $args[2];
-		$this->errors[] = abs($priceA - $priceB);
+		$args = explode(" ", $actual);
+		$priceActual = $args[2];
+		$args = explode(" ", $expected);
+		$priceExpected = $args[2];
+
+		$relativeError = (abs($priceExpected - $priceActual)) / $priceExpected;
+		$this->errors[] = $relativeError;
 	}
 
 
 	public function getErrorRate()
 	{
-		return array_sum($this->errors) / count($this->errors);
+		return array_sum($this->errors) / count($this->errors) * 100;
 	}
 
 }
