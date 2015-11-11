@@ -73,8 +73,27 @@ Graf:
 
 #### FPTAS
 
+###### Porovnání časů:
 
+*Časy jsou uvedeny v ms.*
 
+Tabulka:
+
+![](table1.png)
+
+Graf s porovnáním algoritmů:
+
+![](chart3.png)
+
+###### Porovnání chybovosti:
+
+Tabulka:
+
+![](table2.png)
+
+Graf:
+
+![](chart4.png)
 
 Měřeno na:
 

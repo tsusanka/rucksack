@@ -24,7 +24,7 @@ $solutions = [
 ];
 
 foreach ([0.25, 0.5, 0.75, 0.9] as $eps) {
-	foreach ([15, 22] as $size) {
+	foreach ([4, 10, 20, 25, 30, 40] as $size) {
 		echo "n=$size eps=$eps errRate[%]=";
 		passthru('time ./main.php ' . $sources[$size] . " " . $solutions[$size] . " " . $eps);
 	}

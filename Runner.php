@@ -54,7 +54,7 @@ class Runner
 
 	public function getErrorRate()
 	{
-		return array_sum($this->errors) / count($this->errors) * 100;
+		return max($this->errors) * 100;
 	}
 
 }
