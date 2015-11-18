@@ -25,7 +25,7 @@ Z výsledných řešení W(n, c) vybereme řešení, pro které je W(n, c) < M p
 
 ##### Metodou FPTAS
 
-Pomocí vzorce `floor(log((eps * Cm / n)))` spočteme *b*. Toto *b* určuje o kolik bitově posuneme každou z cen. Poté pro řešení zavoláme metodu dynamcikého programování. Vezmeme výsledky a aplikujeme je na půovodní ceny.
+Pomocí vzorce `floor(log((eps * Cm / n)))` spočteme *b*. Toto *b* určuje o kolik bitově posuneme každou z cen. Poté zavoláme metodu dynamického programování. Získáme výsledky a aplikujeme je na původní ceny.
 
 ### Popis kostry algoritmu
 
@@ -81,19 +81,26 @@ Tabulka:
 
 ![](table1.png)
 
-Graf s porovnáním algoritmů:
+Graf porovnání algoritmů:
 
 ![](chart3.png)
 
-###### Porovnání chybovosti:
+###### Porovnání maximální relativní chyby:
 
 Tabulka:
+
+*Hodnoty jsou uvedné v procentech.*
 
 ![](table2.png)
 
 Graf:
 
 ![](chart4.png)
+
+###### Porovnání maximální relativní chyby s chybou teoretickou:
+
+![](chart5.png)
+
 
 Měřeno na:
 
@@ -104,7 +111,7 @@ Měřeno na:
 
 ### Závěr
 
-Metoda B&B přináší zrychlení oproti metodě hrubou silou. Pouze však o konstatu, složitost je stále exponenciální, jak lze vidět z grafu. Dynamické programování přináší pseudopolynomické @todo řešení problému. Toho jsme schopni dosáhnout díky větší paměťové náročnosti a faktu, že jsou ceny celá čísla. Pokud by ceny byly z R, nemohli bychom pro každé potencionální řešení (tj. cenu) vytvořit řádek tabulky.
+Metoda B&B přináší zrychlení oproti metodě hrubou silou. Pouze však o konstatu, složitost je stále exponenciální, jak lze vidět z grafu. Dynamické programování přináší pseudopolynomiální řešení problému. Toho jsme schopni dosáhnout díky větší paměťové náročnosti a faktu, že jsou ceny celočíselné. Pokud by ceny byly z R, nemohli bychom pro každé potencionální řešení (tj. cenu) vytvořit řádek tabulky. FPTAS již pouze dokresluje celou situaci a ukazuje, že metoda dosahuje velmi nízké relativní chyby.
 
 Autor: Tomáš Sušánka (susantom)
 
