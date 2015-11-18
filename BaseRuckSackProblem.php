@@ -26,6 +26,9 @@ abstract class BaseRuckSackProblem
 	/** @var int */
 	protected $maxPrice = 0;
 
+	/** @var int */
+	protected $steps = 0;
+
 
 	public function __construct($args)
 	{
@@ -40,7 +43,7 @@ abstract class BaseRuckSackProblem
 		foreach ($this->solution as $boolean) {
 			$string .= (int) $boolean . ' ';
 		}
-		return substr($string, 0, -1) . "\n";
+		return substr($string, 0, -1);
 	}
 
 
@@ -67,6 +70,18 @@ abstract class BaseRuckSackProblem
 				$cnt++;
 			}
 		}
+	}
+
+
+	protected function step()
+	{
+		$this->steps++;
+	}
+
+
+	public function printSteps()
+	{
+		echo "   S: $this->steps \n";
 	}
 
 

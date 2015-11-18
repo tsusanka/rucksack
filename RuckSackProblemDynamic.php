@@ -24,6 +24,8 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 			$this->W($this->size, $i);
 		}
 		$this->retrieveSolution();
+		$this->printSolution();
+		$this->printSteps();
 	}
 
 
@@ -47,6 +49,7 @@ class RuckSackProblemDynamic extends BaseRuckSackProblem
 		}
 
 		$this->table[$i][$c] = min($this->W($i - 1, $c), $this->W($i - 1, $c - $this->getPrice($i)) + $this->getWeight($i));
+		$this->step();
 
 		return $this->table[$i][$c];
 	}

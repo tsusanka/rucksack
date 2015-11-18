@@ -14,6 +14,7 @@ class RuckSackProblemBB extends BaseRuckSackProblem
 		$this->check($init);
 		$this->walk(0, $init);
 		$this->printSolution();
+		$this->printSteps();
 	}
 
 
@@ -61,6 +62,7 @@ class RuckSackProblemBB extends BaseRuckSackProblem
 
 	private function check($booleans)
 	{
+		$this->step();
 		$weight = $price = 0;
 		for ($i = 0; $i < $this->size; $i++) {
 			if (!$booleans[$i]) {

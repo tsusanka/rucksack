@@ -10,14 +10,10 @@ if (!isset($argv[2])) {
 	echo "Missing solution filename\n";
 	exit(1);
 }
-if (!isset($argv[3])) {
-	echo "Set error rate\n";
-	exit(1);
-}
 
 $runner = new Runner();
 try {
-	$runner->loadFile($argv[1], $argv[2], $argv[3]);
+	$runner->loadFile($argv[1], $argv[2]);
 } catch (Exception $e) {
 	echo $e->getMessage();
 	exit(2);
