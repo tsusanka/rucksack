@@ -12,7 +12,7 @@ echo "Max weight;$classes[0];$classes[1];$classes[2]\n";
 foreach ($maxWeight as $weight) {
 	echo "$weight;";
 	foreach ($classes as $class) {
-		passthru("knapgen/knapgen.o -n 15 -N 50 -m 0.6 -W $weight -C 250 -k 1 -d 0 > input.txt 2> output.txt");
+		passthru("knapgen/knapgen.o -n 16 -N 50 -m 0.6 -W $weight -C 250 -k 1 -d 0 > input.txt 2> output.txt");
 		if ($class === RuckSackProblemBB::class) {
 			passthru("./main.php input.txt output.txt $class > solution.txt");
 			echo parseSteps() . ";";
@@ -36,7 +36,7 @@ echo "Max price;$classes[0];$classes[1];$classes[2]\n";
 foreach ($maxPrice as $price) {
 	echo "$price;";
 	foreach ($classes as $class) {
-		passthru("knapgen/knapgen.o -n 10 -N 50 -m 0.6 -W 100 -C $price -k 1 -d 0 > input.txt 2> output.txt");
+		passthru("knapgen/knapgen.o -n 16 -N 50 -m 0.6 -W 100 -C $price -k 1 -d 0 > input.txt 2> output.txt");
 		if ($class === RuckSackProblemBB::class) {
 			passthru("./main.php input.txt output.txt $class > solution.txt");
 			echo parseSteps() . ";";
@@ -60,7 +60,7 @@ echo "ratio;$classes[0];$classes[1];$classes[2]\n";
 foreach ($ratios as $ratio) {
 	echo "$ratio;";
 	foreach ($classes as $class) {
-		passthru("knapgen/knapgen.o -n 10 -N 50 -m $ratio -W 100 -C 250 -k 1 -d 0 > input.txt 2> output.txt");
+		passthru("knapgen/knapgen.o -n 16 -N 50 -m $ratio -W 100 -C 250 -k 1 -d 0 > input.txt 2> output.txt");
 		if ($class === RuckSackProblemBB::class) {
 			passthru("./main.php input.txt output.txt $class > solution.txt");
 			echo parseSteps() . ";";
@@ -84,7 +84,7 @@ echo "gran;$classes[0];$classes[1];$classes[2]\n";
 foreach ($gran as $g) {
 	echo "$g (d=-1);";
 	foreach ($classes as $class) {
-		passthru("knapgen/knapgen.o -n 10 -N 50 -m 0.6 -W 100 -C 250 -k $g -d -1 > input.txt 2> output.txt");
+		passthru("knapgen/knapgen.o -n 16 -N 50 -m 0.6 -W 100 -C 250 -k $g -d -1 > input.txt 2> output.txt");
 		if ($class === RuckSackProblemBB::class) {
 			passthru("./main.php input.txt output.txt $class > solution.txt");
 			echo parseSteps() . ";";
@@ -108,7 +108,7 @@ echo "sizes;$classes[0];$classes[1];$classes[2]\n";
 foreach ($gran as $g) {
 	echo "$g (d=1);";
 	foreach ($classes as $class) {
-		passthru("knapgen/knapgen.o -n 10 -N 50 -m 0.6 -W 100 -C 250 -k $g -d 1 > input.txt 2> output.txt");
+		passthru("knapgen/knapgen.o -n 16 -N 50 -m 0.6 -W 100 -C 250 -k $g -d 1 > input.txt 2> output.txt");
 		if ($class === RuckSackProblemBB::class) {
 			passthru("./main.php input.txt output.txt $class > solution.txt");
 			echo parseSteps() . ";";
@@ -150,7 +150,7 @@ function parseHeurestic()
 		$expected = fgets($handleSolution);
 		$errors[] = compareTwoResults($line, $expected);
 	}
-	return (array_sum($errors) / 50) * 100;
+	return (array_sum($errors) / 50);
 }
 
 
