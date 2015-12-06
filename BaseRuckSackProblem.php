@@ -84,6 +84,11 @@ abstract class BaseRuckSackProblem
 		echo "   S: $this->steps \n";
 	}
 
+	public function getSteps()
+	{
+		return $this->steps;
+	}
+
 
 	abstract public function solve();
 

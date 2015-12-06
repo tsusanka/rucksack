@@ -5,19 +5,15 @@ require_once('loader.php');
 class Runner
 {
 
-	/** @var int[] */
-	private $errors;
-
-
-	private function run($arguments, $extra = NULL)
+	private function run($class, $arguments, $extra = NULL)
 	{
-		$solver = new RuckSackProblemDynamic($arguments, $extra);
+		$solver = new $class($arguments, $extra);
 		$solver->solve();
 		return $solver->getSolution();
 	}
 
 
-	public function loadFile($source, $expected, $extra = NULL)
+	public function loadFile($class, $source, $expected, $extra = NULL)
 	{
 		$handle = fopen($source, 'r');
 		$handleSolution = fopen($expected, 'r');
@@ -26,35 +22,12 @@ class Runner
 		}
 
 		while (($line = fgets($handle)) !== FALSE) {
+			if (!$line) continue;
 			$parameters = rtrim($line, "\r\n");
-			$actual = $this->run(explode(' ', $parameters), $extra);
-			$expected = fgets($handleSolution);
-			$this->compareTwoResults($actual, $expected);
+			$this->run($class, explode(' ', $parameters), $extra);
 		}
 		fclose($handle);
 		fclose($handleSolution);
-	}
-
-
-	private function compareTwoResults($actual, $expected)
-	{
-		if ($actual === $expected) {
-			$this->errors[] = 0;
-			return;
-		}
-		$args = explode(" ", $actual);
-		$priceActual = $args[2];
-		$args = explode(" ", $expected);
-		$priceExpected = $args[2];
-
-		$relativeError = (abs($priceExpected - $priceActual)) / $priceExpected;
-		$this->errors[] = $relativeError;
-	}
-
-
-	public function getErrorRate()
-	{
-		return max($this->errors) * 100;
 	}
 
 }

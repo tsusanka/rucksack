@@ -5,7 +5,7 @@ Viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/tutorials/batoh).
 
 ### Generátor instancí problému batohu
 
-Popis programu viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/homeworks/knapsack/generator).
+Popis programu viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/homeworks/knapsack/generator).aaa
 
 
 Parametry jsem nastavil ve výchozím nastavení takto:
@@ -18,23 +18,26 @@ Parametry jsem nastavil ve výchozím nastavení takto:
 - exponent k: 1
 - rovnováha velikosti věcí: 0
 
-V následujících měření jsem změnil vždy jeden z parametrů.
-
-Generátor jsem tedy zkompiloval a spusti takto:
+Generátor jsem tedy zkompiloval a spustil takto:
 
 ```bash
 $ gcc -o knapgen.o knapgen.c knapcore.c -lm
-$ ./knapgen.o -n 25 -N 50 -m 0.6 -W 100 -C 250 -k 1 -d 0 > input.txt 2> output.txt
+$ ./knapgen.o -n 18 -N 50 -m 0.6 -W 100 -C 250 -k 1 -d 0 > input.txt 2> output.txt
 ```
-5
+
+### Měření
+
 Počet kroků je vždy zaokrouhlován na celá čísla směrem nahoru.
 
+V následujících měřeních jsem vždy změnil jeden z parametrů.
+
+##### Maximální váha věcí
 
 
 
 ### Závěr
 
-Metoda B&B přináší zrychlení oproti metodě hrubou silou. Pouze však o konstatu, složitost je stále exponenciální, jak lze vidět z grafu. Dynamické programování přináší pseudopolynomiální řešení problému. Toho jsme schopni dosáhnout díky větší paměťové náročnosti a faktu, že jsou ceny celočíselné. Pokud by ceny byly z R, nemohli bychom pro každé potencionální řešení (tj. cenu) vytvořit řádek tabulky. FPTAS již pouze dokresluje celou situaci a ukazuje, že metoda dosahuje velmi nízké relativní chyby.
+
 
 Autor: Tomáš Sušánka (susantom)
 
