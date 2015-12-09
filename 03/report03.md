@@ -80,12 +80,12 @@ Z grafu je jasně patrná závislost dynamického programování na ceně. To je
 
 | Kapacita k sumární váze | Branch & Bound (počet kroků) |	Dynamické progr. (počet kroků) | Heurestika (relativní chyba v %) |
 |:--|:--|:--|:--|
-| 0,1 | 3 130 926 | 1 627 966 | 0,28 |
-| 0,2 | 2 622 180 | 1 623 422 | 0,22 |
-| 0,4 | 954 228 | 1 611 358 | 0,15 |
-| 0,6 | 215 736 | 1 584 942 | 0,16 |
-| 0,8 | 49 410 | 1 590 702 | 0,12 |
-| 1 | 33 982 | 1 620 478 | 0,00 |
+| 0,1 | 27 596 | 1 627 966 | 0,28 |
+| 0,2 | 123 150 | 1 623 422 | 0,22 |
+| 0,4 | 294 970 | 1 611 358 | 0,15 |
+| 0,6 | 127 464 | 1 584 942 | 0,16 |
+| 0,8 | 43 702 | 1 590 702 | 0,12 |
+| 1 | 35 534 | 1 620 478 | 0,00 |
 
 
 ##### Graf
@@ -96,7 +96,7 @@ Z grafu je jasně patrná závislost dynamického programování na ceně. To je
 
 Parametr určuje z kolika věcí se bude skládat finální řešení. Čím vyšší poměr, tim více položek bude v řešení.
 
-Závislost u alg. B&B je evidentní. Čim více položek v řešení, tim méně různých kombinací musíme zkoumat. Nejvýrazněji to lze vidět u `m=1`, v tomto případě jsou všechny položky součástí řešení a my ho nalezneme velmi rychle.
+Závislost u alg. B&B je evidentní. Všechny položky mohou být "lehké" a tudíž součástí řešení (`m=1`); na druhé straně spektra (`m=0`) velmi brzo překročíme kapacitu baťohu. U B&B se tedy projeví ořezávání prostoru dle hmotnosti.
 
 
 #### Granularita (d = -1)
