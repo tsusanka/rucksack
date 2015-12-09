@@ -43,17 +43,19 @@ class RuckSackProblemBB extends BaseRuckSackProblem
 	 */
 	private function isPerspective($values, $index)
 	{
-		$nextTrue = $values;
-		$nextTrue[$index] = TRUE;
 		$weight = $price = 0;
 		for ($i = 0; $i < $this->size; $i++) {
-			if ($i <= $index && !$nextTrue[$i]) {
-				continue;
+			if ($values[$i] || $i >= $index) {
+				$price += $this->prices[$i];
 			}
-			$price += $this->prices[$i];
-			$weight += $this->weights[$i];
+			if ($values[$i]) {
+				$weight += $this->weights[$i];
+			}
 		}
 		if ($price <= $this->maxPrice) {
+			return FALSE;
+		}
+		if ($weight > $this->capacity) {
 			return FALSE;
 		}
 		return TRUE;
