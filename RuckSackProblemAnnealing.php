@@ -5,10 +5,10 @@ require_once('loader.php');
 class RuckSackProblemAnnealing extends BaseRuckSackProblem
 {
 
-	const ANNEALING_RATE = 0.95;
-	const EQUILIBRIUM = 50;
-	const TEMP_START = 0.0044;
-	const TEMP_END = 0.00001;
+	const ANNEALING_RATE = 0.94;
+	const EQUILIBRIUM = 5;
+	const TEMP_START = 0.5;
+	const TEMP_END = 0.1;
 
 	/** @var int */
 	private $temp = 0;
@@ -23,7 +23,7 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 	public function solve()
 	{
 		$this->init();
-		$this->setStartTemp();
+		$this->temp = self::TEMP_START;
 
 		$frozenFlag = TRUE;
 		while (TRUE) {
@@ -31,7 +31,6 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 				break;
 			}
 			if (!$this->equilibrium()) {
-//				echo "#$this->tryStep attempt on temp $this->temp\n";
 				$this->tryState();
 				$frozenFlag = FALSE;
 			} else {
@@ -44,19 +43,6 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 		return $this->maxPrice;
 	}
 
-
-	private function setStartTemp()
-	{
-		$this->temp = self::TEMP_START;
-		return;
-		$prices = $weights = 0;
-		for ($i = 0; $i < $this->size; $i++) {
-			$prices = $this->prices[$i];
-			$weights = $this->weights[$i];
-		}
-		$this->temp = ($prices / $this->size) / ($weights / $this->capacity) * self::TEMP_START;
-	}
-
 	/**
 	 * Randomly selects an item. If it is not in rucksack it adds it and checks.
 	 * If it is, it removes it, if a specific conditions are met.
@@ -65,21 +51,19 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 	{
 		$key = array_rand($this->weights);
 
-		if (!$this->workingOnSolution[$key]) { // not in the bag
-			$this->workingOnSolution[$key] = TRUE;
-			if ($price = $this->check()) {
-				// return new
-				echo $price . "\n";
-				$this->maxPrice = $price;
-				$this->solution = $this->workingOnSolution;
-				return;
-			}
+		$this->workingOnSolution[$key] = !$this->workingOnSolution[$key]; // neighbour
+		list($better, $price) = $this->check();
+		if ($better) {
+			$this->maxPrice = $price;
+			$this->solution = $this->workingOnSolution;
+			return;
 		}
+
 		// delta magic
-		$delta = -($this->prices[$key] - $this->maxPrice);
+		$delta = ($price - $this->maxPrice);
 		$x = mt_rand() / mt_getrandmax();
-		if ($x < exp($delta / $this->temp)) {
-			$this->workingOnSolution[$key] = FALSE;
+		if (!($x < exp($delta / $this->temp))) {
+			$this->workingOnSolution[$key] = !$this->workingOnSolution[$key];
 			// return new
 		}
 		// else return state
@@ -87,7 +71,7 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 
 	private function equilibrium()
 	{
-		return ++$this->tryStep === $this->size * self::EQUILIBRIUM;
+		return ++$this->tryStep === ($this->size * self::EQUILIBRIUM);
 	}
 
 	private function frozen()
@@ -97,11 +81,9 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 
 	private function cool()
 	{
-		echo "cooling $this->temp\n";
 		$this->tryStep = 0;
 		$this->temp *= self::ANNEALING_RATE;
 	}
-
 
 	private function check()
 	{
@@ -115,14 +97,13 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 		}
 
 		if ($weight > $this->capacity) {
-			return FALSE;
+			return [FALSE, $price];
 		}
 		if ($price >= $this->maxPrice) {
-			return $price;
+			return [TRUE, $price];
 		}
-		return FALSE;
+		return [FALSE, $price];
 	}
-
 
 	private function init()
 	{
@@ -130,16 +111,6 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 		for ($i = 0; $i < $this->size; $i++) {
 			$this->workingOnSolution[] = FALSE;
 		}
-	}
-
-
-	private function p($booleans)
-	{
-		$string = $this->id . ' ' . $this->size . ' ' . $this->maxPrice . '  ';
-		foreach ($booleans as $boolean) {
-			$string .= (int) $boolean . ' ';
-		}
-		echo substr($string, 0, -1);
 	}
 
 }
