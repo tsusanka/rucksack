@@ -7,3 +7,4 @@ require_once('RuckSackProblemRatio.php');
 require_once('RuckSackProblemBB.php');
 require_once('RuckSackProblemDynamic.php');
 require_once('RuckSackProblemFPTAS.php');
+require_once('RuckSackProblemAnnealing.php');

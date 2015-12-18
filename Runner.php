@@ -11,7 +11,7 @@ class Runner
 
 	private function run($arguments, $extra = NULL)
 	{
-		$solver = new RuckSackProblemDynamic($arguments, $extra);
+		$solver = new RuckSackProblemAnnealing($arguments, $extra);
 		$solver->solve();
 		return $solver->getSolution();
 	}
@@ -54,7 +54,7 @@ class Runner
 
 	public function getErrorRate()
 	{
-		return max($this->errors) * 100;
+		return array_sum($this->errors) / count($this->errors) * 100;
 	}
 
 }
