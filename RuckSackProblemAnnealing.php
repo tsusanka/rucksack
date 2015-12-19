@@ -97,6 +97,7 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 
 	private function check()
 	{
+		$this->step();
 		$weight = $price = 0;
 		for ($i = 0; $i < $this->size; $i++) {
 			if (!$this->workingOnSolution[$i]) {

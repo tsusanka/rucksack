@@ -23,7 +23,7 @@ K měření jsem použil testovací data, která obsahují i řešení. Použil 
 
 Příklad spuštění:
 
-`./main.php data/input/knap_40.inst.dat data/output/knap_40.sol.dat `
+`./main.php data/input/knap_40.inst.dat data/output/knap_40.sol.dat 0.94 5 3 0.1`
 
 
 

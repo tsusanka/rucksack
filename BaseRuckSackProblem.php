@@ -49,7 +49,8 @@ abstract class BaseRuckSackProblem
 
 	public function printSolution()
 	{
-		echo $this->getSolution() . "\n";
+		echo $this->getSolution();
+		$this->printSteps();
 	}
 
 
