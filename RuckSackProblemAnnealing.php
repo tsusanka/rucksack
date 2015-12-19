@@ -5,10 +5,10 @@ require_once('loader.php');
 class RuckSackProblemAnnealing extends BaseRuckSackProblem
 {
 
-	const ANNEALING_RATE = 0.94;
-	const EQUILIBRIUM = 5;
-	const TEMP_START = 0.5;
-	const TEMP_END = 0.1;
+	private $annealingRate = 0.94;
+	private $equilibrium = 5;
+	private $tempStart = 3;
+	private $tempEnd = 0.1;
 
 	/** @var int */
 	private $temp = 0;
@@ -20,10 +20,20 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 	private $workingOnSolution;
 
 
+	public function __construct($args, $extra)
+	{
+		parent::__construct($args);
+		$this->annealingRate = $extra[0];
+		$this->equilibrium = $extra[1];
+		$this->tempStart = $extra[2];
+		$this->tempEnd = $extra[3];
+
+	}
+
 	public function solve()
 	{
 		$this->init();
-		$this->temp = self::TEMP_START;
+		$this->temp = $this->tempStart;
 
 		$frozenFlag = TRUE;
 		while (TRUE) {
@@ -71,18 +81,18 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 
 	private function equilibrium()
 	{
-		return ++$this->tryStep === ($this->size * self::EQUILIBRIUM);
+		return ++$this->tryStep === ($this->size * $this->equilibrium);
 	}
 
 	private function frozen()
 	{
-		return $this->temp <= self::TEMP_END;
+		return $this->temp <= $this->tempEnd;
 	}
 
 	private function cool()
 	{
 		$this->tryStep = 0;
-		$this->temp *= self::ANNEALING_RATE;
+		$this->temp *= $this->annealingRate;
 	}
 
 	private function check()
