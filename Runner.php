@@ -8,12 +8,15 @@ class Runner
 	/** @var int[] */
 	private $errors;
 
+	/** @var int */
+	private $steps = 0;
+
 
 	private function run($arguments, $extra = NULL)
 	{
 		$solver = new RuckSackProblemAnnealing($arguments, $extra);
 		$solver->solve();
-		return $solver->getSolution();
+		return [$solver->getSolution(), $solver->getSteps()];
 	}
 
 
@@ -27,7 +30,10 @@ class Runner
 
 		while (($line = fgets($handle)) !== FALSE) {
 			$parameters = rtrim($line, "\r\n");
-			$actual = $this->run(explode(' ', $parameters), $extra);
+			list($actual, $steps) = $this->run(explode(' ', $parameters), $extra);
+			if (!$this->steps) {
+				$this->steps = (int)$steps;
+			}
 			$expected = fgets($handleSolution);
 			$this->compareTwoResults($actual, $expected);
 		}
@@ -55,6 +61,11 @@ class Runner
 	public function getErrorRate()
 	{
 		return array_sum($this->errors) / count($this->errors) * 100;
+	}
+
+	public function getSteps()
+	{
+		return $this->steps;
 	}
 
 }

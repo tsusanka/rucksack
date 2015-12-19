@@ -1,34 +1,37 @@
 #!/usr/bin/env php
 <?php
 
-$sources = [
-	4 => 'data/input/knap_4.inst.dat',
-	10 => 'data/input/knap_10.inst.dat',
-	15 => 'data/input/knap_15.inst.dat',
-	20 => 'data/input/knap_20.inst.dat',
-	22 => 'data/input/knap_22.inst.dat',
-	25 => 'data/input/knap_25.inst.dat',
-	30 => 'data/input/knap_30.inst.dat',
-	40 => 'data/input/knap_40.inst.dat',
-];
+$source = 'data/input/knap_40.inst.dat';
+$solution = 'data/output/knap_40.sol.dat';
 
-$solutions = [
-	4 => 'data/output/knap_4.sol.dat',
-	10 => 'data/output/knap_10.sol.dat',
-	15 => 'data/output/knap_15.sol.dat',
-	20 => 'data/output/knap_20.sol.dat',
-	22 => 'data/output/knap_22.sol.dat',
-	25 => 'data/output/knap_25.sol.dat',
-	30 => 'data/output/knap_30.sol.dat',
-	40 => 'data/output/knap_40.sol.dat',
-];
+$anDef = 0.94;
+$eqDef = 5;
+$startDef = 20; //3
+$endDef = 0.1;
 
-foreach ([0.25, 0.5, 0.75, 0.9] as $eps) {
-	foreach ([4, 10, 20, 25, 30, 40] as $size) {
-		echo "n=$size eps=$eps errRate[%]=";
-		passthru('time ./main.php ' . $sources[$size] . " " . $solutions[$size] . " " . $eps);
-	}
+
+$annealing = [0.1, 0.3, 0.5, 0.75, 0.85, 0.9, 0.93, 0.95, 0.97, 0.99];
+$eq = [1, 2, 3, 5, 10, 15, 20, 30, 40];
+$startTemps = [0.2, 0.5, 2, 5, 10, 20, 40, 70, 100];
+
+echo "Ochlazování;Chyba [%];Počet kroků\n";
+foreach ($annealing as $a) {
+	echo "$a;";
+	passthru('./main.php ' . $source . " " . $solution . " $a $eqDef $startDef $endDef");
 }
+
+echo "Equilibrium;Chyba [%];Počet kroků\n";
+foreach ($eq as $e) {
+	echo "$e;";
+	passthru('./main.php ' . $source . " " . $solution . " $anDef $e $startDef $endDef");
+}
+
+echo "Počáteční teplota;Chyba [%];Počet kroků\n";
+foreach ($startTemps as $s) {
+	echo "$s;";
+	passthru('./main.php ' . $source . " " . $solution . " $anDef $eqDef $s $endDef");
+}
+
 
 function de(...$args)
 {

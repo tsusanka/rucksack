@@ -79,6 +79,10 @@ abstract class BaseRuckSackProblem
 		$this->steps++;
 	}
 
+	public function getSteps()
+	{
+		return $this->steps;
+	}
 
 	public function printSteps()
 	{

@@ -24,7 +24,7 @@ try {
 	exit(2);
 }
 
-echo $runner->getErrorRate();
+echo round($runner->getErrorRate(), 2) . ";" . $runner->getSteps() . "\n";
 
 function de(...$args)
 {

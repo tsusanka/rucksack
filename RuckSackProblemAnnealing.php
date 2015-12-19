@@ -5,10 +5,10 @@ require_once('loader.php');
 class RuckSackProblemAnnealing extends BaseRuckSackProblem
 {
 
-	private $annealingRate = 0.94;
-	private $equilibrium = 5;
-	private $tempStart = 3;
-	private $tempEnd = 0.1;
+	private $annealingRate;
+	private $equilibrium;
+	private $tempStart;
+	private $tempEnd;
 
 	/** @var int */
 	private $temp = 0;
@@ -49,7 +49,7 @@ class RuckSackProblemAnnealing extends BaseRuckSackProblem
 			}
 		}
 
-		$this->printSolution();
+//		$this->printSolution();
 		return $this->maxPrice;
 	}
 
