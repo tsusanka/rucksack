@@ -1,4 +1,4 @@
 <?php
 
 require_once('Runner.php');
-require_once('Solver.php');
+require_once('SatSolver.php');
