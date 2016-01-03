@@ -53,8 +53,11 @@ class SatSolver
 
 	private function brute()
 	{
-		$values = [0, 0, 0, 0];
-		// check
+		$values = [];
+		for ($i = 0; $i < $this->varCount; $i++) {
+			$values[] = 0;
+		}
+		$this->check($values);
 		$this->walk(0, $values);
 	}
 
@@ -68,6 +71,14 @@ class SatSolver
 		$this->walk($index + 1, $values);
 		$values[$index] = !$values[$index];
 
+		$this->check($values);
+
+		$this->walk($index + 1, $values);
+	}
+
+
+	private function check($values)
+	{
 		if ($this->evaluate($values)) {
 			$price = $this->enumerate($values);
 			if ($price > $this->maxPrice) {
@@ -75,8 +86,6 @@ class SatSolver
 				$this->solution = $values;
 			}
 		}
-
-		$this->walk($index + 1, $values);
 	}
 
 
