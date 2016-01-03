@@ -14,6 +14,12 @@ class SatSolver
 	/** @var int */
 	private $clauseCount;
 
+	/** @var int */
+	private $maxPrice;
+
+	/** @var int[] */
+	private $solution;
+
 	/** @var int[] */
 	private $weights;
 
@@ -30,18 +36,47 @@ class SatSolver
 	 */
 	public function __construct($varCount, $clauseCount, $weights, $clauses)
 	{
-		$this->varCount = $varCount;
-		$this->clauseCount = $clauseCount;
+		$this->varCount = (int)$varCount;
+		$this->clauseCount = (int)$clauseCount;
 		$this->weights = $weights;
 		$this->clauses = $clauses;
+		$this->maxPrice = 0;
 	}
 
 
 	public function solve()
 	{
-		$values = [1, 1, 1, 0];
-		echo $this->evaluate($values) . "\n";
-		echo $this->enumerate($values) . "\n";
+		$this->brute();
+		$this->printSolution();
+	}
+
+
+	private function brute()
+	{
+		$values = [0, 0, 0, 0];
+		// check
+		$this->walk(0, $values);
+	}
+
+
+	public function walk($index, $values)
+	{
+		if ($index === $this->varCount) {
+			return $values;
+		}
+
+		$this->walk($index + 1, $values);
+		$values[$index] = !$values[$index];
+
+		if ($this->evaluate($values)) {
+			$price = $this->enumerate($values);
+			if ($price > $this->maxPrice) {
+				$this->maxPrice = $price;
+				$this->solution = $values;
+			}
+		}
+
+		$this->walk($index + 1, $values);
 	}
 
 
@@ -69,7 +104,18 @@ class SatSolver
 			}
 			$result &= $clauseResult;
 		}
-		return $result;
+		return (bool)$result;
+	}
+
+
+	private function printSolution()
+	{
+		echo "-----------------------\n";
+		echo "max: " . $this->maxPrice . "\nvector: ";
+		foreach ($this->solution as $s) {
+			echo $s . " ";
+		}
+		echo "\n";
 	}
 
 }
