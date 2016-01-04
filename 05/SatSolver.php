@@ -26,6 +26,9 @@ abstract class SatSolver
 	/** @var [][] */
 	protected $clauses;
 
+	/** @var int */
+	protected $steps = 0;
+
 
 	/**
 	 * SatSolver constructor.
@@ -83,6 +86,12 @@ abstract class SatSolver
 			echo $s . " ";
 		}
 		echo "\n";
+	}
+
+
+	protected function step()
+	{
+		$this->steps++;
 	}
 
 }

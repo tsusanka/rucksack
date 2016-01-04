@@ -24,7 +24,7 @@ class Runner
 			throw new Exception("Provided file does not exist");
 		}
 
-		$clauseCountCheck = $clauseCount = $varCount = $weights = $solutionPrice = 0;
+		$clauseCountCheck = $clauseCount = $varCount = $weights = $theirPrice = 0;
 		$clauses = [];
 		while (($line = fgets($handle)) !== FALSE) {
 			$line = rtrim($line, "\r\n");
@@ -42,7 +42,7 @@ class Runner
 				$weights = $exploded;
 
 			} else if ($exploded[0] === 's') {
-				$solutionPrice = $exploded[1];
+				$theirPrice = $exploded[1];
 
 			} else {
 				$clauseCountCheck++;
@@ -57,7 +57,8 @@ class Runner
 		}
 
 		$solver = new SatSolverAnnealing($varCount, $clauseCount, $weights, $clauses, 0.95, 100, 100, 0.1);
-		echo "b: " . $solver->solve() .  " r: " . $solutionPrice . "\n";
+		list($myPrice, $steps) = $solver->solve();
+		echo "a: " . $myPrice . " r: " . $theirPrice . " steps: " . $steps . "\n";
 
 		fclose($handle);
 	}

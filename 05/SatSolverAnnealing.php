@@ -53,7 +53,7 @@ class SatSolverAnnealing extends SatSolver
 		}
 
 //		$this->printSolution();
-		return $this->maxPrice;
+		return [$this->maxPrice, $this->steps];
 	}
 
 	/**
@@ -84,7 +84,7 @@ class SatSolverAnnealing extends SatSolver
 
 	protected function check()
 	{
-		// todo step
+		$this->step();
 		$price = $this->enumerate($this->workingOnSolution);
 		if ($this->evaluate($this->workingOnSolution)) {
 			if ($price > $this->maxPrice) {
