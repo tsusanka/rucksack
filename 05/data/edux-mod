@@ -1,0 +1,14 @@
+c Priklad CNF
+c 5 promenne a 10 klauzuli
+c kazda klauzule konci nulou (ne novym radkem)
+w 2 4 1 6 3
+p cnf 5 10
+5 -3 4 0
+-1 2 -3 0
+3 4 0
+1 2 -3 -4 0
+-2 3 0
+-3 -4 0
+-1 -4 0
+-2 -4 0
+1 -4 0
