@@ -25,8 +25,9 @@ class Runner
 		$files = array_diff(scandir($dir), array('..', '.'));
 		$a = 0;
 		foreach ($files as $file) {
+			echo "$a ";
 			$this->loadFile($dir . '/' . $file, $extra);
-			if ($a++ == 5) break;
+			if (++$a == 50) break;
 		}
 //		$this->loadFile($dir, $extra);
 	}
@@ -76,7 +77,7 @@ class Runner
 		$this->steps = $steps;
 		$this->compareTwoResults($myPrice, $theirPrice);
 
-		echo end(explode("/", $source)) . " mine: " . $myPrice . " their: " . $theirPrice . " steps: $steps \n";
+//		echo end(explode("/", $source)) . " mine: " . $myPrice . " their: " . $theirPrice . " steps: $steps \n";
 
 		fclose($handle);
 	}

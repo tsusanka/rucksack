@@ -10,7 +10,6 @@ class SatSolverAnnealing extends SatSolver
 
 	private $annealingRate;
 	private $equilibrium;
-	private $tempStart;
 	private $tempEnd;
 
 	/** @var int */
@@ -26,17 +25,18 @@ class SatSolverAnnealing extends SatSolver
 	public function __construct($varCount, $clauseCount, $weights, $clauses, $extra)
 	{
 		parent::__construct($varCount, $clauseCount, $weights, $clauses);
-		$this->annealingRate = $extra[0];
-		$this->equilibrium = $extra[1];
-		$this->tempStart = $extra[2];
-		$this->tempEnd = $extra[3];
+
+		$this->setStartTemp($extra[0], $extra[3]);
+
+		$this->annealingRate = $extra[1];
+		$this->equilibrium = (int) $extra[2];
+		$this->tempEnd = $extra[4];
 	}
 
 
 	public function solve()
 	{
 		$this->init();
-		$this->temp = $this->tempStart;
 
 		$frozenFlag = TRUE;
 		while (TRUE) {
@@ -116,6 +116,27 @@ class SatSolverAnnealing extends SatSolver
 		$this->workingOnSolution = [];
 		for ($i = 0; $i < $this->varCount; $i++) {
 			$this->workingOnSolution[] = FALSE;
+		}
+	}
+
+	private function setStartTemp($mode, $parameter)
+	{
+		$max = max($this->weights);
+		switch ($mode) {
+			case 1:
+				$this->temp = $parameter;
+				break;
+			case 2:
+				$this->temp = $parameter * $max;
+				break;
+			case 3:
+				$this->temp = $parameter * ($max / $this->varCount);
+				break;
+			case 4:
+				$this->temp = $parameter * ($max / $this->clauseCount);
+				break;
+			default:
+				throw new \Exception('Set start temp mode unknown.');
 		}
 	}
 

@@ -3,30 +3,18 @@
 
 $source = 'data/input/';
 
-$anDef = 0.94;
-$eqDef = 5;
-$startDef = 20;
-$endDef = 0.1;
+$modes = [1, 2, 3, 4];
+$values = [
+	[0.95, 100, 100, 0.1],
+//	[0.95, 250, 20, 0.1],
+];
 
-
-echo "Metoda 1\n";
-
-echo "Ochlazování;Chyba [%];Počet kroků\n";
-foreach ($annealing as $a) {
-	echo "$a;";
-	passthru('./main.php ' . $source . " " . $solution . " $a $eqDef $startDef $endDef");
-}
-
-echo "Equilibrium;Chyba [%];Počet kroků\n";
-foreach ($eq as $e) {
-	echo "$e;";
-	passthru('./main.php ' . $source . " " . $solution . " $anDef $e $startDef $endDef");
-}
-
-echo "Počáteční teplota;Chyba [%];Počet kroků\n";
-foreach ($startTemps as $s) {
-	echo "$s;";
-	passthru('./main.php ' . $source . " " . $solution . " $anDef $eqDef $s $endDef");
+foreach ($modes as $mode) {
+	echo "Mode $mode\n";
+	foreach ($values as $args) {
+		echo implode(';', $args) . "\n";
+		passthru("hhvm ./main.php data/input $mode " . implode(' ', $args));
+	}
 }
 
 

@@ -41,25 +41,25 @@ kde
 
 Konkrétní hodnoty jsem zvolil také ve 4 různých variací. K číslům jsem také došel experimentálně. Zde dokumentuji 4 nastavení:
 
-1) 
+1)
 - rychlost ochlazování = 0.94
 - equilibrium = 100
 - počáteční teplota = 100
 - temp end = 0.1
 
-2) 
+2)
 - rychlost ochlazování = 0.94
 - equilibrium = 100
 - počáteční teplota = 100
 - temp end = 0.1
 
-3) 
+3)
 - rychlost ochlazování = 0.94
 - equilibrium = 100
 - počáteční teplota = 100
 - temp end = 0.1
 
-4) 
+4)
 - rychlost ochlazování = 0.94
 - equilibrium = 100
 - počáteční teplota = 100
