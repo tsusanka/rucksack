@@ -5,26 +5,26 @@ namespace Sat;
 require_once('loader.php');
 
 
-class SatSolver
+abstract class SatSolver
 {
 
 	/** @var int */
-	private $varCount;
+	protected $varCount;
 
 	/** @var int */
-	private $clauseCount;
+	protected $clauseCount;
 
 	/** @var int */
-	private $maxPrice;
+	protected $maxPrice;
 
 	/** @var int[] */
-	private $solution;
+	protected $solution;
 
 	/** @var int[] */
-	private $weights;
+	protected $weights;
 
 	/** @var [][] */
-	private $clauses;
+	protected $clauses;
 
 
 	/**
@@ -44,52 +44,10 @@ class SatSolver
 	}
 
 
-	public function solve()
-	{
-		$this->brute();
-		$this->printSolution();
-	}
+	abstract public function solve();
 
 
-	private function brute()
-	{
-		$values = [];
-		for ($i = 0; $i < $this->varCount; $i++) {
-			$values[] = 0;
-		}
-		$this->check($values);
-		$this->walk(0, $values);
-	}
-
-
-	public function walk($index, $values)
-	{
-		if ($index === $this->varCount) {
-			return $values;
-		}
-
-		$this->walk($index + 1, $values);
-		$values[$index] = !$values[$index];
-
-		$this->check($values);
-
-		$this->walk($index + 1, $values);
-	}
-
-
-	private function check($values)
-	{
-		if ($this->evaluate($values)) {
-			$price = $this->enumerate($values);
-			if ($price > $this->maxPrice) {
-				$this->maxPrice = $price;
-				$this->solution = $values;
-			}
-		}
-	}
-
-
-	private function enumerate($values)
+	protected function enumerate($values)
 	{
 		$result = 0;
 		foreach ($values as $key => $value) {
@@ -99,7 +57,7 @@ class SatSolver
 	}
 
 
-	private function evaluate($values)
+	protected function evaluate($values)
 	{
 		$result = 1;
 		foreach ($this->clauses as $clause) {
@@ -117,7 +75,7 @@ class SatSolver
 	}
 
 
-	private function printSolution()
+	public function printSolution()
 	{
 		echo "-----------------------\n";
 		echo "max: " . $this->maxPrice . "\nvector: ";

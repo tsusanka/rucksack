@@ -24,51 +24,42 @@ class Runner
 			throw new Exception("Provided file does not exist");
 		}
 
+		$clauseCountCheck = $clauseCount = $varCount = $weights = $solutionPrice = 0;
 		$clauses = [];
 		while (($line = fgets($handle)) !== FALSE) {
 			$line = rtrim($line, "\r\n");
-			if (substr($line, 0, 1) === 'c') {
+			$line = rtrim($line, " ");
+			$exploded = explode(' ', $line);
+			if ($exploded[0] === 'c' || $line === '%') {
 				continue;
 
-			} else if (substr($line, 0, 1) === 'p') {
-				$exploded = explode(' ', $line);
-				$varCount = $exploded[2];
-				$clauseCount = $exploded[3];
+			} else if ($exploded[0] === 'p') {
+				$varCount = (int)$exploded[2];
+				$clauseCount = (int)$exploded[3];
 
-			} else if (substr($line, 0, 1) === 'w') {
-				$exploded = explode(' ', $line);
+			} else if ($exploded[0] === 'w') {
 				array_shift($exploded);
 				$weights = $exploded;
+
+			} else if ($exploded[0] === 's') {
+				$solutionPrice = $exploded[1];
+
 			} else {
+				$clauseCountCheck++;
 				$clause = explode(' ', $line);
 				array_pop($clause); // removes 0
 				$clauses[] = $clause;
 			}
 		}
-		echo "variable count: $varCount \n";
-		echo "clause count: $clauseCount \n";
-		echo "weights: " . implode(' ', $weights) . "\n";
+		if ($clauseCount != $clauseCountCheck) {
+			echo "Error: number of clauses specified in the comment do not match the file's row count \n";
+			exit(2);
+		}
 
-		$solver = new SatSolver($varCount, $clauseCount, $weights, $clauses);
-		$solver->solve();
+		$solver = new SatSolverAnnealing($varCount, $clauseCount, $weights, $clauses, 0.95, 100, 100, 0.1);
+		echo "b: " . $solver->solve() .  " r: " . $solutionPrice . "\n";
 
 		fclose($handle);
-	}
-
-
-	private function convertToOnes($clauses, $varCount)
-	{
-		$new = $now = [];
-		foreach ($clauses as $clause) {
-			for ($i = 0; $i < $varCount; $i++) {
-				$now[$i] = 0;
-			}
-			foreach ($clause as $variable) {
-				$now[abs($variable) - 1] = $variable / abs($variable);
-			}
-			$new[] = $now;
-		}
-		return $new;
 	}
 
 }
