@@ -16,8 +16,23 @@ class Runner
 	/** @var int */
 	private $steps = 0;
 
+	/** @var int */
+	private $foundOptimal = 0;
 
-	public function loadFile($source)
+
+	public function loadFiles($dir, $extra)
+	{
+		$files = array_diff(scandir($dir), array('..', '.'));
+		$a = 0;
+		foreach ($files as $file) {
+			$this->loadFile($dir . '/' . $file, $extra);
+			if ($a++ == 5) break;
+		}
+//		$this->loadFile($dir, $extra);
+	}
+
+
+	public function loadFile($source, $extra)
 	{
 		$handle = fopen($source, 'r');
 		if (!$handle) {
@@ -42,7 +57,7 @@ class Runner
 				$weights = $exploded;
 
 			} else if ($exploded[0] === 's') {
-				$theirPrice = $exploded[1];
+				$theirPrice = (int) $exploded[1];
 
 			} else {
 				$clauseCountCheck++;
@@ -56,11 +71,40 @@ class Runner
 			exit(2);
 		}
 
-		$solver = new SatSolverAnnealing($varCount, $clauseCount, $weights, $clauses, 0.95, 100, 100, 0.1);
+		$solver = new SatSolverAnnealing($varCount, $clauseCount, $weights, $clauses, $extra);
 		list($myPrice, $steps) = $solver->solve();
-		echo "a: " . $myPrice . " r: " . $theirPrice . " steps: " . $steps . "\n";
+		$this->steps = $steps;
+		$this->compareTwoResults($myPrice, $theirPrice);
+
+		echo end(explode("/", $source)) . " mine: " . $myPrice . " their: " . $theirPrice . " steps: $steps \n";
 
 		fclose($handle);
+	}
+
+	private function compareTwoResults($mine, $theirs)
+	{
+		if ($mine === $theirs) {
+			$this->foundOptimal++;
+			$this->errors[] = 0;
+			return;
+		}
+		$relativeError = (abs($theirs - $mine)) / $theirs;
+		$this->errors[] = $relativeError;
+	}
+
+	public function getErrorRate()
+	{
+		return array_sum($this->errors) / count($this->errors) * 100;
+	}
+
+	public function getSteps()
+	{
+		return $this->steps;
+	}
+
+	public function getFoundOptimal()
+	{
+		return $this->foundOptimal;
 	}
 
 }

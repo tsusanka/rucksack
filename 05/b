@@ -1,0 +1,128 @@
+./main.php data/input 0.94 200 3 0.1
+001.wcnf mine: 437 their: 705 steps: 219945 
+002.wcnf mine: 623 their: 632 steps: 219945 
+003.wcnf mine: 0 their: 836 steps: 219945 
+004.wcnf mine: 696 their: 696 steps: 219945 
+005.wcnf mine: 757 their: 757 steps: 219945 
+006.wcnf mine: 0 their: 386 steps: 219945 
+steps;foundOptimal;error
+219945;2;39.91
+
+------------------------------------------------
+
+./main.php data/input 0.94 100 3 0.1
+001.wcnf mine: 705 their: 705 steps: 109945 
+002.wcnf mine: 584 their: 632 steps: 109945 
+003.wcnf mine: 0 their: 836 steps: 109945 
+004.wcnf mine: 603 their: 696 steps: 109945 
+005.wcnf mine: 618 their: 757 steps: 109945 
+006.wcnf mine: 0 their: 386 steps: 109945 
+steps;foundOptimal;error
+109945;1;39.89
+
+./main.php data/input 0.94 100 3 0.1
+001.wcnf mine: 357 their: 705 steps: 109945 
+002.wcnf mine: 623 their: 632 steps: 109945 
+003.wcnf mine: 0 their: 836 steps: 109945 
+004.wcnf mine: 603 their: 696 steps: 109945 
+005.wcnf mine: 678 their: 757 steps: 109945 
+006.wcnf mine: 0 their: 386 steps: 109945 
+steps;foundOptimal;error
+109945;0;45.76
+
+--------------------------------------------------
+
+./main.php data/input 0.94 100 10 0.1
+001.wcnf mine: 437 their: 705 steps: 149925 
+002.wcnf mine: 0 their: 632 steps: 149925 
+003.wcnf mine: 0 their: 836 steps: 149925 
+004.wcnf mine: 671 their: 696 steps: 149925 
+005.wcnf mine: 658 their: 757 steps: 149925 
+006.wcnf mine: 386 their: 386 steps: 149925 
+steps;foundOptimal;error
+149925;1;42.45
+
+--------------------------------------------------
+
+./main.php data/input 0.94 100 5 0.1
+001.wcnf mine: 437 their: 705 steps: 127936 
+002.wcnf mine: 0 their: 632 steps: 127936 
+003.wcnf mine: 0 their: 836 steps: 127936 
+004.wcnf mine: 662 their: 696 steps: 127936 
+005.wcnf mine: 726 their: 757 steps: 127936 
+006.wcnf mine: 0 their: 386 steps: 127936 
+steps;foundOptimal;error
+127936;0;57.83
+
+--------------------------------------------------
+
+./main.php data/input 0.94 100 20 0.1
+001.wcnf mine: 493 their: 705 steps: 171914 
+002.wcnf mine: 632 their: 632 steps: 171914 
+003.wcnf mine: 0 their: 836 steps: 171914 
+004.wcnf mine: 696 their: 696 steps: 171914 
+005.wcnf mine: 726 their: 757 steps: 171914 
+006.wcnf mine: 0 their: 386 steps: 171914 
+steps;foundOptimal;error
+171914;2;39.03
+
+--------------------------------------------------
+
+./main.php data/input 0.94 250 20 0.1
+001.wcnf mine: 518 their: 705 steps: 429914 
+002.wcnf mine: 632 their: 632 steps: 429914 
+003.wcnf mine: 836 their: 836 steps: 429914 
+004.wcnf mine: 656 their: 696 steps: 429914 
+005.wcnf mine: 726 their: 757 steps: 429914 
+006.wcnf mine: 333 their: 386 steps: 429914 
+steps;foundOptimal;error
+429914;2;8.35
+
+--------------------------------------------------
+
+./main.php data/input 0.95 250 100 0.1 #nastaveni 4
+001.wcnf mine: 437 their: 705 steps: 674865 
+002.wcnf mine: 632 their: 632 steps: 674865 
+003.wcnf mine: 836 their: 836 steps: 674865 
+004.wcnf mine: 696 their: 696 steps: 674865 
+005.wcnf mine: 726 their: 757 steps: 674865 
+006.wcnf mine: 386 their: 386 steps: 674865 
+steps;foundOptimal;error
+674865;4;7.02
+
+----------------------------------------------------
+
+./main.php data/input 0.95 100 100 0.1 #nastaveni 3 
+001.wcnf mine: 705 their: 705 steps: 269865 
+002.wcnf mine: 632 their: 632 steps: 269865 
+003.wcnf mine: 682 their: 836 steps: 269865 
+004.wcnf mine: 696 their: 696 steps: 269865 
+005.wcnf mine: 757 their: 757 steps: 269865 
+006.wcnf mine: 0 their: 386 steps: 269865 
+steps;foundOptimal;error
+269865;4;19.74
+
+----------------------------------------------------
+
+./main.php data/input 0.95 100 5780 0.1 #nastaveni 3b
+
+001.wcnf mine: 705 their: 705 steps: 427786 
+002.wcnf mine: 632 their: 632 steps: 427786 
+003.wcnf mine: 836 their: 836 steps: 427786 
+004.wcnf mine: 662 their: 696 steps: 427786 
+005.wcnf mine: 718 their: 757 steps: 427786 
+006.wcnf mine: 302 their: 386 steps: 427786 
+steps;foundOptimal;error
+427786;3;5.3
+
+----------------------------------------------------
+./main.php data/input 0.95 100 5780 0.1 #nastaveni 3b
+
+001.wcnf mine: 518 their: 705 steps: 427786 
+002.wcnf mine: 623 their: 632 steps: 427786 
+003.wcnf mine: 836 their: 836 steps: 427786 
+004.wcnf mine: 662 their: 696 steps: 427786 
+005.wcnf mine: 697 their: 757 steps: 427786 
+006.wcnf mine: 375 their: 386 steps: 427786 
+steps;foundOptimal;error
+427786;1;7.27

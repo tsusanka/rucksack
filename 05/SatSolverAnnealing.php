@@ -23,13 +23,13 @@ class SatSolverAnnealing extends SatSolver
 	private $workingOnSolution;
 
 
-	public function __construct($varCount, $clauseCount, $weights, $clauses, $ar, $eq, $ts, $te)
+	public function __construct($varCount, $clauseCount, $weights, $clauses, $extra)
 	{
 		parent::__construct($varCount, $clauseCount, $weights, $clauses);
-		$this->annealingRate = $ar;
-		$this->equilibrium = $eq;
-		$this->tempStart = $ts;
-		$this->tempEnd = $te;
+		$this->annealingRate = $extra[0];
+		$this->equilibrium = $extra[1];
+		$this->tempStart = $extra[2];
+		$this->tempEnd = $extra[3];
 	}
 
 
