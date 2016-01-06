@@ -1,20 +1,34 @@
 #!/usr/bin/env php
 <?php
 
-$source = 'data/input/';
+$source = 'data/generated-18/';
 
-$modes = [1, 2, 3, 4];
-$values = [
-	[0.95, 100, 100, 0.1],
-//	[0.95, 250, 20, 0.1],
-];
+$mode = 1;
+$anDef = 0.94;
+$eqDef = 25;
+$startDef = 1000; //3
+$endDef = 0.1;
 
-foreach ($modes as $mode) {
-	echo "Mode $mode\n";
-	foreach ($values as $args) {
-		echo implode(';', $args) . "\n";
-		passthru("hhvm ./main.php data/input $mode " . implode(' ', $args));
-	}
+$annealing = [0.5, 0.75, 0.85, 0.9, 0.95, 0.97, 0.99];
+$eq = [5, 10, 15, 20, 25, 50, 100];
+$startTemps = [5, 10, 20, 50, 100, 1000, 5000];
+
+echo "Ochlazování;Chyba [%];Počet kroků\n";
+foreach ($annealing as $a) {
+	echo "$a;";
+	passthru("hhvm ./main.php $source $mode $a $eqDef $startDef $endDef");
+}
+
+echo "Equilibrium;Chyba [%];Počet kroků\n";
+foreach ($eq as $e) {
+	echo "$e;";
+	passthru("hhvm ./main.php $source $mode $anDef $e $startDef $endDef");
+}
+
+echo "Počáteční teplota;Chyba [%];Počet kroků\n";
+foreach ($startTemps as $s) {
+	echo "$s;";
+	passthru("hhvm ./main.php $source $mode $anDef $eqDef $s $endDef");
 }
 
 

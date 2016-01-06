@@ -23,8 +23,8 @@ try {
 	exit(2);
 }
 
-echo "steps;foundOptimal;error\n";
-echo $runner->getSteps() . ";" . $runner->getFoundOptimal() . ";" . round($runner->getErrorRate(), 2) . "\n";
+//echo "steps;foundOptimal;error\n";
+echo round($runner->getErrorRate(), 2) . ";" . $runner->getSteps() . "\n";
 
 function de(...$args)
 {

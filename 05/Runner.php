@@ -25,9 +25,7 @@ class Runner
 		$files = array_diff(scandir($dir), array('..', '.'));
 		$a = 0;
 		foreach ($files as $file) {
-			echo "$a ";
 			$this->loadFile($dir . '/' . $file, $extra);
-			if (++$a == 50) break;
 		}
 //		$this->loadFile($dir, $extra);
 	}

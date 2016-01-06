@@ -12,9 +12,7 @@ Jako v minulém úkolu jsem zvolil algoritmus simulované ochlazování (Simulat
 
 Základní kostru algoritmu jsem vytvořil podle slidů 15 a 13 přednášky 8. Naprogramovat řešení bylo relativně jednoduché, opravdový oříšek je správné nastavení parametrů algoritmu.
 
-### Zkušební instance
-
-K měření jsem použil testovací data, které jsem získal !!!! TODO !!!!. Data obsahují vždy 20 proměnných a 91 klauzulých. V komentáři se také nacházá řešení. Pro ověření řešení uvedeného v testovacích datech jsem naprogramoval řešení úlohy hrubou silou, viz `SatSolverBrute`.
+### Program
 
 Program bere jako argumenty parametry simulovaného ochlazování v pořadí:
 
@@ -23,9 +21,16 @@ Program bere jako argumenty parametry simulovaného ochlazování v pořadí:
 - počáteční teplota
 - koncová teplota
 
+### Zkušební instance
+
+Zkušební instance jsem si vygeneroval pomocí nástroje, který jsem nalezl [zde](https://github.com/ziyuw/entropy_approx/blob/master/extra/G2.c), který jsem lehce upravil. Generátor je bez řešení, to dopočítal exaktní metodou a doplnil do souborů.
+
+Nejdříve jsem vygeneroval instance o 15 proměnných a 50 klauzulí. To se však ukázalo jako přílíš malé instance a tak jsem vygeneroval další o velikosti 18 proměnných a 50 klauzulí, které mě již uspokojily. Pro úplnost se v příkládám oboje.
+
+
 ## Parametry
 
-Pro zvolení ideální počáteční teploty jsem vzal v úvahu následující 4 metody výpočtu počáteční teploty:
+Nejdříve jsem uvažoval jak ideálně zvolit počáteční teplotu a zdali bych neměl vzít v parametry instance. Vytvořil jsem tedy experiment, kde počáteční hodnotu počítám dle jednoho z následujících vzorců:
 
 - To = Tp
 - To = Tp*maxWeight
@@ -39,41 +44,34 @@ kde
 - m ............ počet klauzulí
 - maxWeight .... maximální váha
 
-Konkrétní hodnoty jsem zvolil také ve 4 různých variací. K číslům jsem také došel experimentálně. Zde dokumentuji 4 nastavení:
+Konkrétní hodnoty jsem zvolil také ve 4 různých variací. V následující tabulce je výsledek tohoto snažení:
 
-1)
-- rychlost ochlazování = 0.94
-- equilibrium = 100
-- počáteční teplota = 100
-- temp end = 0.1
+![Tabulka 1](table1.png)
 
-2)
-- rychlost ochlazování = 0.94
-- equilibrium = 100
-- počáteční teplota = 100
-- temp end = 0.1
+Připomeňme, že vzorec 1 je stanoven jako `To = Tp`, není zde tedy žádná závislost mezi daty a počáteční teplotu. Teplota je přímo rovna parametru teploty. Porovnejme ostatní vzorce s tímto.
 
-3)
-- rychlost ochlazování = 0.94
-- equilibrium = 100
-- počáteční teplota = 100
-- temp end = 0.1
+Z tabulky je vidět, že vzorce mají minimální vliv na výsledné hodnoty. Tam kde vzroste počet kroků, klesne také chybovost. Nezjistili jsme však, že použití jakéhokoliv z vzorců vede obecně k lepším výsledkům. Zdá se, že buď vzorce nemají vliv, nebo jsou nastavené chybně, anebo testovací data nevykazují dostatečné odlišnosti.
 
-4)
-- rychlost ochlazování = 0.94
-- equilibrium = 100
-- počáteční teplota = 100
-- temp end = 0.1
+Pojďme se tedy spíše věnovat nastavení parametrů pro vzorec číslo 1.
 
-Následuje experimentální zjištění, které z těchto metod a natavení je nejlepší.
+### Zjištění nastavení
+
+Následující dvě tabulky uvádí naměřené hodnoty:
+
+![Tabulka 2a](table2.png)
+![Tabulka 2b](table3.png)
+
+Nastavení č. 1, 2 a 7 můžeme vyloučit pro příliš vysokou chybovost. Nastavení č. 5 má podobné výsledky jako č. 4, č. 4 ho však dosáhne za méně kroků. Pokud považujeme za přijatelnou chybovost do 2%, nejvhodnější se zdá nastavení 4, 5 a 6. Číslo 4 má ke své nízké chybě také nizký počet kroků, tudíž v dalších měření pracuji s tímto nastavení.
+
 
 ### Měření
 
-#### Metoda 1
+V jako minulém domacím úkolu dále uvadím závislost na jendotlivých parametrech. Jak již bylo zmíněno vycházím z nastavení č. 4:
 
-**To = Tp**
-
-
+- míra ochlazování = 0.94
+- délka ekvilibria = 25
+- počáteční teplota = 1000
+- koncová teplota = 0.1
 
 
 ### Závislost na rychlosti ochlazování
@@ -82,16 +80,14 @@ Tabulka:
 
 | ochlazování | chyba [%] | počet kroků |
 |:----|:---------|:------------|
-| 0.1 | 9.98 | 398 |
-| 0.3 | 8.09 | 597 |
-| 0.5 | 6.86 | 995 |
-| 0.75 | 5.05 | 2388 |
-| 0.85 | 4.29 | 4179 |
-| 0.9 | 4.11 | 6567 |
-| 0.93 | 3.36 | 9353 |
-| 0.95 | 2.86 | 13333 |
-| 0.97 | 2.30 | 22288 |
-| 0.99 | 1.64 | 67461 |
+| 0.5 | 21.77 | 6286 |
+| 0.75 | 8.66 | 14817 |
+| 0.85 | 2.66 | 25593 |
+| 0.9 | 3.65 | 39512 |
+| 0.95 | 1.05 | 80820 |
+| 0.97 | 0.86 | 136047 |
+| 0.99 | 0.04 | 411733 |
+
 
 Graf:
 
@@ -99,8 +95,7 @@ Graf:
 
 ![](chart-ann-steps.png)
 
-S rychlostí ochlazování klesá relativní chyba. Také je však nutné poznamenat, že exponenciálně roste počet kroků. Rozumná hodnota se zdá být kolem 0,93, kde se chybovost drží kolem 3% a zároveň je počet kroků uspokojitelný.
-
+TODO
 
 ### Závislost na počtu iterací ekvilibria
 
@@ -108,15 +103,13 @@ Tabulka:
 
 | Equilibrium | Chyba [%] | Počet kroků |
 |:----|:---------|:------------|
-| 1 | 5.57 | 2145 |
-| 2 | 4.00 | 4345 |
-| 3 | 3.23 | 6545 |
-| 5 | 2.76 | 10945 |
-| 10 | 2.28 | 21945 |
-| 15 | 2.28 | 32945 |
-| 20 | 1.93 | 43945 |
-| 30 | 1.43 | 65945 |
-| 40 | 1.65 | 87945 |
+| 5 | 10.35 | 13261 |
+| 10 | 4.47 | 26671 |
+| 15 | 3.05 | 40081 |
+| 20 | 1.94 | 53491 |
+| 25 | 0.65 | 66901 |
+| 50 | 0.3 | 133951 |
+| 100 | 0 | 268051 |
 
 Graf:
 
@@ -124,22 +117,19 @@ Graf:
 
 ![](chart-eq-steps.png)
 
-Ekvilibrium udává počet stavů, které vyzkoušíme před ochlazením. Z grafu vidíme, že relativní chyba klesá a počet kroků se významně zvyšuje. Ideální hodnota se pohybuje kolem ekv=10.
-
+TODO!
 
 ### Závislost na počáteční teplotě
 
 | Počáteční teplota | Chyba [%] | Počet kroků |
 |:----|:---------|:------------|
-| 0.2 | 5.36 | 2388 |
-| 0.5 | 3.92 | 5373 |
-| 2 | 3.16 | 9751 |
-| 5 | 2.93 | 12736 |
-| 10 | 2.99 | 14925 |
-| 20 | 2.66 | 17114 |
-| 40 | 2.62 | 19303 |
-| 70 | 2.77 | 21094 |
-| 100 | 3.09 | 22288 |
+| 5 | 3.37 | 28736 |
+| 10 | 2.15 | 33675 |
+| 20 | 2.62 | 38614 |
+| 50 | 2.23 | 45349 |
+| 100 | 1.29 | 50288 |
+| 1000 | 1.24 | 66901 |
+| 5000 | 0.94 | 78575 |
 
 Graf:
 
@@ -147,12 +137,12 @@ Graf:
 
 ![](chart-temp-steps.png)
 
-Při příliš nizké počáteční teplotě je chybovost vysoká. Vysoká počáteční teplota přináší velký počet kroků.
+TODO
 
 
 ### Závěr
 
-Naprogramoval jsem pokročilou iterativní metodu, konkrétně simulované ochlazování. Předvedl jsem, jak parametry ovlivňují výsledné řešení a jeho náročnost.
+TODO!
 
 
 Autor: Tomáš Sušánka (susantom)
