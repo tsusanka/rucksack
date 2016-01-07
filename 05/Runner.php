@@ -27,7 +27,6 @@ class Runner
 		foreach ($files as $file) {
 			$this->loadFile($dir . '/' . $file, $extra);
 		}
-//		$this->loadFile($dir, $extra);
 	}
 
 
@@ -74,8 +73,6 @@ class Runner
 		list($myPrice, $steps) = $solver->solve();
 		$this->steps = $steps;
 		$this->compareTwoResults($myPrice, $theirPrice);
-
-//		echo end(explode("/", $source)) . " mine: " . $myPrice . " their: " . $theirPrice . " steps: $steps \n";
 
 		fclose($handle);
 	}

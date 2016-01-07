@@ -10,12 +10,13 @@ Viz [edux](https://edux.fit.cvut.cz/courses/MI-PAA/homeworks/05/start).
 
 Jako v minulém úkolu jsem zvolil algoritmus simulované ochlazování (Simulated annealing).
 
-Základní kostru algoritmu jsem vytvořil podle slidů 15 a 13 přednášky 8. Naprogramovat řešení bylo relativně jednoduché, opravdový oříšek je správné nastavení parametrů algoritmu.
+Základní kostru algoritmu jsem vytvořil podle slidů 15 a 13 přednášky 8. Naprogramovat řešení bylo relativně jednoduché, těžší částí je správné nastavení parametrů algoritmu.
 
 ### Program
 
 Program bere jako argumenty parametry simulovaného ochlazování v pořadí:
 
+- číslo vzorce (viz dále)
 - míra ochlazování
 - délka ekvilibria
 - počáteční teplota
@@ -23,45 +24,47 @@ Program bere jako argumenty parametry simulovaného ochlazování v pořadí:
 
 ### Zkušební instance
 
-Zkušební instance jsem si vygeneroval pomocí nástroje, který jsem nalezl [zde](https://github.com/ziyuw/entropy_approx/blob/master/extra/G2.c), který jsem lehce upravil. Generátor je bez řešení, to dopočítal exaktní metodou a doplnil do souborů.
+Zkušební instance jsem si vygeneroval pomocí nástroje, který jsem nalezl [zde](https://github.com/ziyuw/entropy_approx/blob/master/extra/G2.c), a který jsem lehce upravil. Generátor je bez řešení, to jsem dopočítal exaktní metodou a doplnil do souborů.
 
-Nejdříve jsem vygeneroval instance o 15 proměnných a 50 klauzulí. To se však ukázalo jako přílíš malé instance a tak jsem vygeneroval další o velikosti 18 proměnných a 50 klauzulí, které mě již uspokojily. Pro úplnost se v příkládám oboje.
+Nejdříve jsem vygeneroval instance o 15 proměnných a 50 klauzulí. Ty se však ukázaly jako přílíš malé a tak jsem vygeneroval další o velikosti 18 proměnných a 50 klauzulí, které mě již uspokojily. Pro úplnost však přikládám oboje.
 
 
-## Parametry
+### Parametry
 
-Nejdříve jsem uvažoval jak ideálně zvolit počáteční teplotu a zdali bych neměl vzít v parametry instance. Vytvořil jsem tedy experiment, kde počáteční hodnotu počítám dle jednoho z následujících vzorců:
+Uvažoval jsem, jak ideálně zvolit počáteční teplotu a zdali bych neměl vzít v úvahu parametry instance. Vytvořil jsem tedy experiment, kde počáteční hodnotu počítám dle jednoho z následujících vzorců:
 
-- To = Tp
-- To = Tp*maxWeight
-- To = Tp*(maxWeight/n)
-- To = Tp*(maxWeight/m)
+1. To = Tp
+2. To = Tp * maxWeight
+3. To = Tp * (maxWeight / n)
+4. To = Tp * (maxWeight / m)
 
 kde
 
-- Tp ........... parametr počáteční teploty
-- n ............ počet proměnných
-- m ............ počet klauzulí
+- Tp .................. parametr počáteční teploty
+- n .................... počet proměnných
+- m ................... počet klauzulí
 - maxWeight .... maximální váha
 
 Konkrétní hodnoty jsem zvolil také ve 4 různých variací. V následující tabulce je výsledek tohoto snažení:
 
 ![Tabulka 1](table1.png)
 
-Připomeňme, že vzorec 1 je stanoven jako `To = Tp`, není zde tedy žádná závislost mezi daty a počáteční teplotu. Teplota je přímo rovna parametru teploty. Porovnejme ostatní vzorce s tímto.
+Připomeňme, že vzorec 1 je stanoven jako `To = Tp`, není zde tedy žádná závislost mezi daty a počáteční teplotu. Teplota je přímo rovna parametru teploty. Porovnejme výsledky ostatních vzorců s tímto.
 
 Z tabulky je vidět, že vzorce mají minimální vliv na výsledné hodnoty. Tam kde vzroste počet kroků, klesne také chybovost. Nezjistili jsme však, že použití jakéhokoliv z vzorců vede obecně k lepším výsledkům. Zdá se, že buď vzorce nemají vliv, nebo jsou nastavené chybně, anebo testovací data nevykazují dostatečné odlišnosti.
 
-Pojďme se tedy spíše věnovat nastavení parametrů pro vzorec číslo 1.
+Pojďme se tedy spíše věnovat správnému nastavení parametrů pro vzorec číslo 1.
 
-### Zjištění nastavení
+### Nastavení
 
 Následující dvě tabulky uvádí naměřené hodnoty:
 
 ![Tabulka 2a](table2.png)
 ![Tabulka 2b](table3.png)
 
-Nastavení č. 1, 2 a 7 můžeme vyloučit pro příliš vysokou chybovost. Nastavení č. 5 má podobné výsledky jako č. 4, č. 4 ho však dosáhne za méně kroků. Pokud považujeme za přijatelnou chybovost do 2%, nejvhodnější se zdá nastavení 4, 5 a 6. Číslo 4 má ke své nízké chybě také nizký počet kroků, tudíž v dalších měření pracuji s tímto nastavení.
+Míru ochlazování a konečnou teplotu jsem již po několika experimentech stanovil na uvedené hodnoty, které se zdály vhodné. Proto se zde věnuji především manipulaci s ekvilibriem a počátečni teplotou, jejichž nastavení bylo méně triviální.
+
+Nastavení č. 1, 2 a 7 můžeme vyloučit pro příliš vysokou chybovost. Nastavení č. 5 má podobné výsledky jako č. 4, které ho však dosáhne za méně kroků. Pokud považujeme za přijatelnou chybovost do 2%, nejvhodnější se zdá nastavení 4, 5 a 6. Číslo 4 má ke své nízké chybě také nizký počet kroků, tudíž v dalších měření pracuji s tímto nastavení.
 
 
 ### Měření
@@ -95,7 +98,8 @@ Graf:
 
 ![](chart-ann-steps.png)
 
-TODO
+Z grafu lze vidět, že ideální rychlost ochlazování je pravděpodobně 0,95. Vykazuje se ještě nízkým počtem kroků a zároveň chybovostí do 2%. Vyšší rychlost ochlazování sice přináší nižší chybovost, ale již za cenu výrazně vyššího počtu kroků.
+
 
 ### Závislost na počtu iterací ekvilibria
 
@@ -117,7 +121,8 @@ Graf:
 
 ![](chart-eq-steps.png)
 
-TODO!
+Ekvilibrium udává počet stavů, které vyzkoušíme před ochlazením. Z grafu vidíme, že relativní chyba klesá a počet kroků se významně zvyšuje. Ideální hodnota se pohybuje kolem ekv=25.
+
 
 ### Závislost na počáteční teplotě
 
@@ -137,12 +142,14 @@ Graf:
 
 ![](chart-temp-steps.png)
 
-TODO
+Při příliš nizké počáteční teplotě je chybovost vysoká. Vysoká počáteční teplota přináší velký počet kroků a zároveň nepřínáší významné snížení chybovosti.
 
 
 ### Závěr
 
-TODO!
+Naprogramoval jsem řešení problému vážené splnitelnosti booleovské formule. Jako pokročilou iterativní metodou jsem zvolil stejně jako v minulém případě simulované ochlazování (Simulated annealing).
+
+Společně s minulou úlohou jsem se přesvědčil, že programování těchto metod není složité. Novou zkušeností je správné nastavení parametrů, a také že nový problém vyžaduje nové konkrétní nastavení.
 
 
 Autor: Tomáš Sušánka (susantom)

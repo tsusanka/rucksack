@@ -1,12 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-$source = 'data/generated-18/';
+$source = 'data/generated-15/';
 
 $mode = 1;
 $anDef = 0.94;
 $eqDef = 25;
-$startDef = 1000; //3
+$startDef = 1000;
 $endDef = 0.1;
 
 $annealing = [0.5, 0.75, 0.85, 0.9, 0.95, 0.97, 0.99];

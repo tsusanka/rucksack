@@ -8,8 +8,13 @@ require_once('loader.php');
 class SatSolverAnnealing extends SatSolver
 {
 
+	/** @var int */
 	private $annealingRate;
+
+	/** @var int */
 	private $equilibrium;
+
+	/** @var int */
 	private $tempEnd;
 
 	/** @var int */
@@ -22,6 +27,14 @@ class SatSolverAnnealing extends SatSolver
 	private $workingOnSolution;
 
 
+	/**
+	 * SatSolverAnnealing constructor.
+	 * @param $varCount
+	 * @param $clauseCount
+	 * @param $weights
+	 * @param $clauses
+	 * @param $extra
+	 */
 	public function __construct($varCount, $clauseCount, $weights, $clauses, $extra)
 	{
 		parent::__construct($varCount, $clauseCount, $weights, $clauses);
@@ -29,11 +42,15 @@ class SatSolverAnnealing extends SatSolver
 		$this->setStartTemp($extra[0], $extra[3]);
 
 		$this->annealingRate = $extra[1];
-		$this->equilibrium = (int) $extra[2];
+		$this->equilibrium = (int)$extra[2];
 		$this->tempEnd = $extra[4];
 	}
 
 
+	/**
+	 * Main annealing skeleton.
+	 * @return array
+	 */
 	public function solve()
 	{
 		$this->init();
@@ -52,18 +69,17 @@ class SatSolverAnnealing extends SatSolver
 			}
 		}
 
-//		$this->printSolution();
 		return [$this->maxPrice, $this->steps];
 	}
 
 	/**
-	 * Randomly selects an item.
+	 * Randomly selects state and checks.
 	 */
 	private function tryState()
 	{
 		$key = array_rand($this->weights);
 
-		$this->workingOnSolution[$key] = !$this->workingOnSolution[$key]; // neighbour
+		$this->workingOnSolution[$key] = !$this->workingOnSolution[$key];
 		list($better, $price) = $this->check();
 		if ($better) {
 			$this->maxPrice = $price;
@@ -71,7 +87,6 @@ class SatSolverAnnealing extends SatSolver
 			return;
 		}
 
-		// delta magic
 		$delta = ($price - $this->maxPrice);
 		$x = mt_rand() / mt_getrandmax();
 		if (!($x < exp($delta / $this->temp))) {
@@ -81,7 +96,10 @@ class SatSolverAnnealing extends SatSolver
 		// else return state
 	}
 
-
+	/**
+	 * Checks if current working solution is better.
+	 * @return array
+	 */
 	protected function check()
 	{
 		$this->step();
@@ -94,23 +112,34 @@ class SatSolverAnnealing extends SatSolver
 		return [FALSE, $price];
 	}
 
-
+	/**
+	 * @return bool
+	 */
 	private function equilibrium()
 	{
 		return ++$this->tryStep === ($this->varCount * $this->equilibrium);
 	}
 
+	/**
+	 * @return bool
+	 */
 	private function frozen()
 	{
 		return $this->temp <= $this->tempEnd;
 	}
 
+	/**
+	 * @return void
+	 */
 	private function cool()
 	{
 		$this->tryStep = 0;
 		$this->temp *= $this->annealingRate;
 	}
 
+	/**
+	 * @return void
+	 */
 	private function init()
 	{
 		$this->workingOnSolution = [];
@@ -119,6 +148,13 @@ class SatSolverAnnealing extends SatSolver
 		}
 	}
 
+	/**
+	 * Sets start temp according to mode.
+	 * See the report for more details.
+	 * @param $mode
+	 * @param $parameter
+	 * @throws \Exception
+	 */
 	private function setStartTemp($mode, $parameter)
 	{
 		$max = max($this->weights);
